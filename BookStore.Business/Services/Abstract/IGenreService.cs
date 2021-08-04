@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BookStore.Business.DataTransferObjects;
 
-namespace BookStore.Business.Services
+namespace BookStore.Business.Services.Abstract
 {
     public interface IGenreService
     {

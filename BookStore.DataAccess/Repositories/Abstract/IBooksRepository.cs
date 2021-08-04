@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using BookStore.Models;
 
-namespace BookStore.DataAccess.Repositories
+namespace BookStore.DataAccess.Repositories.Abstract
 {
-    public interface IGenreRepository : IRepository<GenresTable>
+    public interface IBooksRepository : IRepository<BooksTable>
     {
-
     }
 }

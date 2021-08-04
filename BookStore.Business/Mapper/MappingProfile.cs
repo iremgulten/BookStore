@@ -16,6 +16,11 @@ namespace BookStore.Business.Mapper
             CreateMap<GenresTable, GenreListResponse>().ReverseMap();
             CreateMap<GenresTable, AddNewGenreRequest>().ReverseMap();
             CreateMap<GenresTable, EditGenreRequest>().ReverseMap();
+            CreateMap<BooksTable, AddNewBookRequest>().ReverseMap();
+            CreateMap<BooksTable, BooksListResponse>().ReverseMap();
+            CreateMap<BooksTable, BooksFlag>().ReverseMap();
+            CreateMap<BooksTable, EditBookRequest>().ReverseMap();
+
         }
     }
 }

@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using BookStore.Business.DataTransferObjects;
-using BookStore.DataAccess.Repositories;
+using BookStore.Business.Services.Abstract;
+using BookStore.DataAccess.Repositories.Abstract;
 using BookStore.Models;
 
-namespace BookStore.Business.Services
+namespace BookStore.Business.Services.Concrete
 {
     public class GenreService : IGenreService
     {

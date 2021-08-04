@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using BookStore.DataAccess.Repositories.Abstract;
 using BookStore.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookStore.DataAccess.Repositories
+namespace BookStore.DataAccess.Repositories.Concrete
 {
     public class EFGenreRepository : IGenreRepository
     {
@@ -25,9 +22,9 @@ namespace BookStore.DataAccess.Repositories
             return entity;
         }
 
-        public void Delete(GenresTable genre)
+        public void Delete(GenresTable entity)
         {
-            dbContext.GenresTables.Remove(genre);
+            dbContext.GenresTables.Remove(entity);
             dbContext.SaveChanges();
         }
         public IList<GenresTable> GetAll()
@@ -40,16 +37,11 @@ namespace BookStore.DataAccess.Repositories
             return dbContext.GenresTables.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
 
-        public IList<GenresTable> GetWithCriteria(Expression<Func<GenresTable, bool>> criteria)
+        public GenresTable Update(GenresTable entity)
         {
-            return dbContext.GenresTables.Where(criteria).ToList();
-        }
-
-        public GenresTable Update(GenresTable genre)
-        {
-            dbContext.Entry(genre).State = EntityState.Modified;
+            dbContext.Entry(entity).State = EntityState.Modified;
             dbContext.SaveChanges();
-            return genre;
+            return entity;
         }
     }
 }
