@@ -25,9 +25,9 @@ namespace BookStore.DataAccess.Repositories
             return entity;
         }
 
-        public void Delete(int id)
+        public void Delete(GenresTable genre)
         {
-            dbContext.GenresTables.Remove(GetById(id));
+            dbContext.GenresTables.Remove(genre);
             dbContext.SaveChanges();
         }
         public IList<GenresTable> GetAll()

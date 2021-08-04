@@ -14,7 +14,7 @@ namespace BookStore.DataAccess.Repositories
         IList<Entity> GetWithCriteria(Expression<Func<Entity, bool>> criteria);
         Entity Add(Entity entity);
         Entity Update(Entity genre);
-        void Delete(int id);
+        void Delete(Entity genre);
 
     }
 }

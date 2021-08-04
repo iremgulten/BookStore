@@ -13,6 +13,6 @@ namespace BookStore.Business.Services
         int AddGenre(AddNewGenreRequest request);
         GenreListResponse GetGenresById(int id);
         int UpdateGenre(EditGenreRequest request);
-        void DeleteGenre(int id);
+        void DeleteGenre(GenreListResponse request);
     }
 }

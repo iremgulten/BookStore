@@ -28,8 +28,9 @@ namespace BookStore.Business.Services
 
         }
 
-        public void DeleteGenre(GenreListResponse genre)
+        public void DeleteGenre(GenreListResponse genreListResponse)
         {
+            var genre = mapper.Map<GenresTable>(genreListResponse);
             genreRepository.Delete(genre);
         }
 
