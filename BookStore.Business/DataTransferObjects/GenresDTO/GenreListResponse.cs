@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookStore.Business.DataTransferObjects
+namespace BookStore.Business.DataTransferObjects.GenresDTO
 {
     public class GenreListResponse
     {

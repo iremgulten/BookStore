@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using BookStore.Business.DataTransferObjects;
+﻿using AutoMapper;
+using BookStore.Business.DataTransferObjects.AuthorsDTO;
+using BookStore.Business.DataTransferObjects.BooksDTO;
+using BookStore.Business.DataTransferObjects.GenresDTO;
+using BookStore.Business.DataTransferObjects.PublishersDTO;
 using BookStore.Models;
 
 namespace BookStore.Business.Mapper
@@ -13,13 +11,20 @@ namespace BookStore.Business.Mapper
     {
         public MappingProfile()
         {
+            CreateMap<AuthorsTable, AuthorNameResponse>().ReverseMap();
+
+            CreateMap<BooksTable, AddNewBookRequest>().ReverseMap();
+            CreateMap<BooksTable, BooksListResponse>().ReverseMap();
+            CreateMap<BooksTable, BookFlagsResponse>().ReverseMap();
+            CreateMap<BooksTable, EditBookRequest>().ReverseMap();
+
             CreateMap<GenresTable, GenreListResponse>().ReverseMap();
             CreateMap<GenresTable, AddNewGenreRequest>().ReverseMap();
             CreateMap<GenresTable, EditGenreRequest>().ReverseMap();
-            CreateMap<BooksTable, AddNewBookRequest>().ReverseMap();
-            CreateMap<BooksTable, BooksListResponse>().ReverseMap();
-            CreateMap<BooksTable, BooksFlag>().ReverseMap();
-            CreateMap<BooksTable, EditBookRequest>().ReverseMap();
+            CreateMap<GenresTable, GenreNameResponse>().ReverseMap();
+
+
+            CreateMap<PublishersTable, PublisherNameResponse>().ReverseMap();
 
         }
     }

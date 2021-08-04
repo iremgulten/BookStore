@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
-using BookStore.Business.DataTransferObjects;
 using BookStore.Business.Services.Abstract;
+using BookStore.Business.DataTransferObjects.GenresDTO;
 
 namespace BookStore.API.Controllers
 {
@@ -44,6 +44,7 @@ namespace BookStore.API.Controllers
             return BadRequest();
         }
         [HttpPut("{id}")]
+
         public IActionResult UpdateGenre(int id,EditGenreRequest request)
         {
             var isExisting = service.GetGenresById(id);

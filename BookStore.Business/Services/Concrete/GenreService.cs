@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using BookStore.Business.DataTransferObjects;
+using BookStore.Business.DataTransferObjects.GenresDTO;
 using BookStore.Business.Services.Abstract;
 using BookStore.DataAccess.Repositories.Abstract;
 using BookStore.Models;

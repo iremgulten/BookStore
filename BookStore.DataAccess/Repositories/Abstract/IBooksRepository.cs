@@ -9,5 +9,10 @@ namespace BookStore.DataAccess.Repositories.Abstract
 {
     public interface IBooksRepository : IRepository<BooksTable>
     {
+        public IList<BooksTable> GetAllBookFlags();
+        public IList<BooksTable> GetByAuthor(int id);
+        public IList<BooksTable> GetByPublisher(int id);
+        public IList<BooksTable> GetByGenre(int id);
+
     }
 }
