@@ -64,6 +64,15 @@ namespace BookStore.DataAccess.Repositories.Concrete
                 .Where(opt => opt.AuthorId == id)
                 .ToList();
         }
+        public IList<BooksTable> GetBooksByAuthorName(string author)
+        {
+            return dbContext.BooksTables
+                .Include(opt => opt.Author)
+                .Include(opt => opt.Publisher)
+                .Include(opt => opt.Genre)
+                .Where(opt => opt.Author.NameSurname == author)
+                .ToList();
+        }
 
         public IList<BooksTable>  GetByPublisher(int id)
         {
@@ -74,6 +83,15 @@ namespace BookStore.DataAccess.Repositories.Concrete
                 .Where(opt => opt.PublisherId == id)
                 .ToList();
         }
+        public IList<BooksTable> GetBooksByPublisherName(string publisher)
+        {
+            return dbContext.BooksTables
+                .Include(opt => opt.Author)
+                .Include(opt => opt.Publisher)
+                .Include(opt => opt.Genre)
+                .Where(opt => opt.Publisher.Name == publisher)
+                .ToList();
+        }
         public IList<BooksTable> GetByGenre(int id)
         {
             return dbContext.BooksTables
@@ -81,6 +99,15 @@ namespace BookStore.DataAccess.Repositories.Concrete
                 .Include(opt => opt.Publisher)
                 .Include(opt => opt.Genre)
                 .Where(opt => opt.GenreId == id)
+                .ToList();
+        }
+        public IList<BooksTable> GetBooksByGenreName(string genre)
+        {
+            return dbContext.BooksTables
+                .Include(opt => opt.Author)
+                .Include(opt => opt.Publisher)
+                .Include(opt => opt.Genre)
+                .Where(opt => opt.Genre.Name == genre)
                 .ToList();
         }
 

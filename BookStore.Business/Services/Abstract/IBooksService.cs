@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BookStore.Business.DataTransferObjects.AuthorsDTO;
 using BookStore.Business.DataTransferObjects.BooksDTO;
 using BookStore.Models;
 
@@ -13,9 +14,13 @@ namespace BookStore.Business.Services.Abstract
         IList<BooksListResponse> GetAllBooks();
         BooksListResponse GetBooksById(int id);
         public IList<BookFlagsResponse> GetAllBookFlags();
-        IList<BooksListResponse> GetBooksByAuthor(int authorId);
-        IList<BooksListResponse> GetBooksByPublisher(int publisherId);
-        IList<BooksListResponse> GetBooksByGenre(int genreId);
+        IList<BookFlagsResponse> GetBooksByAuthor(int authorId);
+        IList<BookFlagsResponse> GetBooksByAuthorName(string author);
+        IList<BookFlagsResponse> GetBooksByPublisher(int publisherId);
+        IList<BookFlagsResponse> GetBooksByPublisherName(string publisher);
+        IList<BookFlagsResponse> GetBooksByGenre(int genreId);
+        IList<BookFlagsResponse> GetBooksByGenreName(string genre);
+
 
     }
 }

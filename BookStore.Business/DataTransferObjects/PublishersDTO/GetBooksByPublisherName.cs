@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace BookStore.Business.DataTransferObjects.PublishersDTO
 {
-    public class PublisherNameResponse
+    public class GetBooksByPublisherName
     {
-        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using BookStore.Business.DataTransferObjects.BooksDTO;
+﻿using BookStore.Business.DataTransferObjects.AuthorsDTO;
+using BookStore.Business.DataTransferObjects.BooksDTO;
 using BookStore.Business.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
@@ -48,6 +49,16 @@ namespace BookStore.API.Controllers
             }
             return NotFound();
         }
+        [HttpGet("GetByAuthorName/{author}")]
+        public IActionResult GetBooksByAuthorName(string author)
+        {
+            var books = service.GetBooksByAuthorName(author);
+            if (books != null)
+            {
+                return Ok(books);
+            }
+            return NotFound();
+        }
         [HttpGet("GetByPublisher/{id:int}")]
         public IActionResult GetByPublisher(int id)
         {
@@ -58,10 +69,30 @@ namespace BookStore.API.Controllers
             }
             return NotFound();
         }
+        [HttpGet("GetByPublisherName/{publisher}")]
+        public IActionResult GetBooksByPublisherName(string publisher)
+        {
+            var books = service.GetBooksByPublisherName(publisher);
+            if (books != null)
+            {
+                return Ok(books);
+            }
+            return NotFound();
+        }
         [HttpGet("GetByGenre/{id:int}")]
         public IActionResult GetByGenre(int id)
         {
             var books = service.GetBooksByGenre(id);
+            if (books != null)
+            {
+                return Ok(books);
+            }
+            return NotFound();
+        }
+        [HttpGet("GetByAuthorName/{genre}")]
+        public IActionResult GetBooksByGenreName(string genre)
+        {
+            var books = service.GetBooksByGenreName(genre);
             if (books != null)
             {
                 return Ok(books);
@@ -105,10 +136,5 @@ namespace BookStore.API.Controllers
             service.DeleteBook(isExisting);
             return Ok();
         }
-
-
-
-
-
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using BookStore.Business.DataTransferObjects.AuthorsDTO;
 using BookStore.Business.DataTransferObjects.BooksDTO;
 using BookStore.Business.Services.Abstract;
 using BookStore.DataAccess.Repositories.Abstract;
@@ -18,6 +19,7 @@ namespace BookStore.Business.Services.Concrete
             this.bookRepository = bookRepository;
             this.mapper = mapper;
         }
+
         public int AddBook(AddNewBookRequest request)
         {
             var newBook = mapper.Map<BooksTable>(request);
@@ -27,19 +29,23 @@ namespace BookStore.Business.Services.Concrete
 
         public void DeleteBook(BooksListResponse request)
         {
-            var book = mapper.Map<BooksTable>(request);
+            var temp = mapper.Map<DeleteBookRequest>(request);
+            var book = mapper.Map<BooksTable>(temp);
             bookRepository.Delete(book);
         }
+
         public int UpdateBook(EditBookRequest request)
         {
             var book = mapper.Map<BooksTable>(request);
             return bookRepository.Update(book).Id;
         }
+
         public IList<BooksListResponse> GetAllBooks()
         {
             var bookList = bookRepository.GetAll();
             return mapper.Map<List<BooksListResponse>>(bookList);
         }
+
         public BooksListResponse GetBooksById(int id)
         {
             BooksTable book = bookRepository.GetById(id);
@@ -53,29 +59,46 @@ namespace BookStore.Business.Services.Concrete
             return dtoList;
         }
 
-
         public IList<BookFlagsResponse> GetAllBookFlags()
         {
             var bookList = bookRepository.GetAllBookFlags();
             return mapper.Map<List<BookFlagsResponse>>(bookList);
         }
-        public IList<BooksListResponse> GetBooksByAuthor(int authorId)
+
+        public IList<BookFlagsResponse> GetBooksByAuthor(int authorId)
         {
             var books = bookRepository.GetByAuthor(authorId);
-            return mapper.Map<List<BooksListResponse>>(books);
+            return mapper.Map<List<BookFlagsResponse>>(books);
         }
 
-        public IList<BooksListResponse> GetBooksByGenre(int genreId)
+        public IList<BookFlagsResponse> GetBooksByAuthorName(string author)
+        {
+            var books = bookRepository.GetBooksByAuthorName(author);
+            return mapper.Map<List<BookFlagsResponse>>(books);
+        }
+
+        public IList<BookFlagsResponse> GetBooksByGenre(int genreId)
         {
             var books = bookRepository.GetByGenre(genreId);
-            return mapper.Map<List<BooksListResponse>>(books);
+            return mapper.Map<List<BookFlagsResponse>>(books);
         }
-        public IList<BooksListResponse> GetBooksByPublisher(int publisherId)
+        public IList<BookFlagsResponse> GetBooksByGenreName(string genre)
         {
-            var books = bookRepository.GetByPublisher(publisherId);
-            return mapper.Map<List<BooksListResponse>>(books);
+            var books = bookRepository.GetBooksByGenreName(genre);
+            return mapper.Map<List<BookFlagsResponse>>(books);
         }
 
-        
+        public IList<BookFlagsResponse> GetBooksByPublisher(int publisherId)
+        {
+            var books = bookRepository.GetByPublisher(publisherId);
+            return mapper.Map<List<BookFlagsResponse>>(books);
+        }
+        public IList<BookFlagsResponse> GetBooksByPublisherName(string publisher)
+        {
+            var books = bookRepository.GetBooksByPublisherName(publisher);
+            return mapper.Map<List<BookFlagsResponse>>(books);
+        }
+
+
     }
 }

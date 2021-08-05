@@ -12,11 +12,14 @@ namespace BookStore.Business.Mapper
         public MappingProfile()
         {
             CreateMap<AuthorsTable, AuthorNameResponse>().ReverseMap();
+            CreateMap<AuthorsTable, GetBooksByAuthorName>().ReverseMap();
 
             CreateMap<BooksTable, AddNewBookRequest>().ReverseMap();
             CreateMap<BooksTable, BooksListResponse>().ReverseMap();
             CreateMap<BooksTable, BookFlagsResponse>().ReverseMap();
             CreateMap<BooksTable, EditBookRequest>().ReverseMap();
+            CreateMap<BooksTable, DeleteBookRequest>().ReverseMap();
+            CreateMap<DeleteBookRequest, BooksListResponse>().ReverseMap();
 
             CreateMap<GenresTable, GenreListResponse>().ReverseMap();
             CreateMap<GenresTable, AddNewGenreRequest>().ReverseMap();
@@ -25,6 +28,8 @@ namespace BookStore.Business.Mapper
 
 
             CreateMap<PublishersTable, PublisherNameResponse>().ReverseMap();
+            CreateMap<PublishersTable, GetBooksByPublisherName>().ReverseMap();
+
 
         }
     }
