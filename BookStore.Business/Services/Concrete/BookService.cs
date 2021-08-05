@@ -6,7 +6,7 @@ using BookStore.Business.DataTransferObjects.AuthorsDTO;
 using BookStore.Business.DataTransferObjects.BooksDTO;
 using BookStore.Business.Services.Abstract;
 using BookStore.DataAccess.Repositories.Abstract;
-using BookStore.Models;
+using BookStore.Entities;
 
 namespace BookStore.Business.Services.Concrete
 {

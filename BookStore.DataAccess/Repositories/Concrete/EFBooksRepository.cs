@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BookStore.DataAccess.Repositories.Abstract;
-using BookStore.Models;
+using BookStore.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.DataAccess.Repositories.Concrete

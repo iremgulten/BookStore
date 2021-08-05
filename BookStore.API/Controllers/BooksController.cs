@@ -89,7 +89,7 @@ namespace BookStore.API.Controllers
             }
             return NotFound();
         }
-        [HttpGet("GetByAuthorName/{genre}")]
+        [HttpGet("GetByGenreName/{genre}")]
         public IActionResult GetBooksByGenreName(string genre)
         {
             var books = service.GetBooksByGenreName(genre);
@@ -103,12 +103,9 @@ namespace BookStore.API.Controllers
         [HttpPost]
         public IActionResult AddBook(AddNewBookRequest request)
         {
-            if (ModelState.IsValid)
-            {
-                service.AddBook(request);
-                return Ok();
-            }
-            return BadRequest();
+            service.AddBook(request);
+            return Ok();
+
         }
         [HttpPut("{id}")]
         public IActionResult UpdateGenre(int id, EditBookRequest request)
@@ -118,12 +115,8 @@ namespace BookStore.API.Controllers
             {
                 return NotFound();
             }
-            if (ModelState.IsValid)
-            {
-                service.UpdateBook(request);
-                return Ok();
-            }
-            return BadRequest();
+            service.UpdateBook(request);
+            return Ok();  
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

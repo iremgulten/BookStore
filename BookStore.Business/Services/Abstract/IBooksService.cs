@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using BookStore.Business.DataTransferObjects.AuthorsDTO;
 using BookStore.Business.DataTransferObjects.BooksDTO;
-using BookStore.Models;
+using BookStore.Entities;
 
 namespace BookStore.Business.Services.Abstract
 {

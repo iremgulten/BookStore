@@ -7,8 +7,6 @@ namespace BookStore.Business.DataTransferObjects.GenresDTO
 {
     public class EditGenreRequest
     {
-        public int Id { get; set; }
-        [Required(ErrorMessage = "Type field cannot be empty")]
         public string Name { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using AutoMapper;
 using BookStore.Business.DataTransferObjects.GenresDTO;
 using BookStore.Business.Services.Abstract;
 using BookStore.DataAccess.Repositories.Abstract;
-using BookStore.Models;
+using BookStore.Entities;
 
 namespace BookStore.Business.Services.Concrete
 {

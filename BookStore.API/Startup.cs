@@ -1,9 +1,11 @@
+using BookStore.API.Middleware;
 using BookStore.Business.Mapper;
 using BookStore.Business.Services.Abstract;
 using BookStore.Business.Services.Concrete;
 using BookStore.DataAccess;
 using BookStore.DataAccess.Repositories.Abstract;
 using BookStore.DataAccess.Repositories.Concrete;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +28,7 @@ namespace BookStore.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<BookService>());
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddDbContext<BookStoreContext>(option => option.UseSqlServer("Server=(localdb)\\Mssqllocaldb;Database=BookStore;Trusted_Connection=True;"));
             services.AddScoped<IGenreService, GenreService>();
@@ -44,6 +46,8 @@ namespace BookStore.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<RequestResponseMiddleware>();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
