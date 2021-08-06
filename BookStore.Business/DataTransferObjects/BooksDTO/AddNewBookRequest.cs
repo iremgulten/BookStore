@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BookStore.Business.DataTransferObjects.AuthorsDTO;
+using BookStore.Business.DataTransferObjects.GenresDTO;
+using BookStore.Business.DataTransferObjects.PublishersDTO;
 
 namespace BookStore.Business.DataTransferObjects.BooksDTO
 {
@@ -11,9 +8,9 @@ namespace BookStore.Business.DataTransferObjects.BooksDTO
     {
         public string Isbn { get; set; }
         public string Title { get; set; }
-        public int AuthorId { get; set; }
-        public int PublisherId { get; set; }
-        public int GenreId { get; set; }
+        public GetBooksByAuthorName Author { get; set; }
+        public GetBooksByPublisherName Publisher { get; set; }
+        public AddNewGenreRequest Genre { get; set; }
         public int NumberOfPage { get; set; }
         public decimal Price { get; set; }
         public string Summary { get; set; }
