@@ -16,7 +16,5 @@ namespace BookStore.DataAccess.Repositories.Abstract
         public IList<BooksTable> GetBooksByPublisherName(string publisher);
         public IList<BooksTable> GetByGenre(int id);
         public IList<BooksTable> GetBooksByGenreName(string genre);
-
-
     }
 }

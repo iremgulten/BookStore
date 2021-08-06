@@ -4,6 +4,8 @@ using System.Linq;
 using AutoMapper;
 using BookStore.Business.DataTransferObjects.AuthorsDTO;
 using BookStore.Business.DataTransferObjects.BooksDTO;
+using BookStore.Business.DataTransferObjects.GenresDTO;
+using BookStore.Business.DataTransferObjects.PublishersDTO;
 using BookStore.Business.Services.Abstract;
 using BookStore.DataAccess.Repositories.Abstract;
 using BookStore.Entities;
@@ -71,9 +73,9 @@ namespace BookStore.Business.Services.Concrete
             return mapper.Map<List<BookFlagsResponse>>(books);
         }
 
-        public IList<BookFlagsResponse> GetBooksByAuthorName(string author)
+        public IList<BookFlagsResponse> GetBooksByAuthorName(GetBooksByAuthorName author)
         {
-            var books = bookRepository.GetBooksByAuthorName(author);
+            var books = bookRepository.GetBooksByAuthorName(author.NameSurname);
             return mapper.Map<List<BookFlagsResponse>>(books);
         }
 
@@ -82,9 +84,9 @@ namespace BookStore.Business.Services.Concrete
             var books = bookRepository.GetByGenre(genreId);
             return mapper.Map<List<BookFlagsResponse>>(books);
         }
-        public IList<BookFlagsResponse> GetBooksByGenreName(string genre)
+        public IList<BookFlagsResponse> GetBooksByGenreName(EditGenreRequest genre)
         {
-            var books = bookRepository.GetBooksByGenreName(genre);
+            var books = bookRepository.GetBooksByGenreName(genre.Name);
             return mapper.Map<List<BookFlagsResponse>>(books);
         }
 
@@ -93,12 +95,10 @@ namespace BookStore.Business.Services.Concrete
             var books = bookRepository.GetByPublisher(publisherId);
             return mapper.Map<List<BookFlagsResponse>>(books);
         }
-        public IList<BookFlagsResponse> GetBooksByPublisherName(string publisher)
+        public IList<BookFlagsResponse> GetBooksByPublisherName(GetBooksByPublisherName publisher)
         {
-            var books = bookRepository.GetBooksByPublisherName(publisher);
+            var books = bookRepository.GetBooksByPublisherName(publisher.Name);
             return mapper.Map<List<BookFlagsResponse>>(books);
         }
-
-
     }
 }

@@ -107,9 +107,8 @@ namespace BookStore.DataAccess.Repositories.Concrete
                 .Include(opt => opt.Author)
                 .Include(opt => opt.Publisher)
                 .Include(opt => opt.Genre)
-                .Where(opt => opt.Genre.Name == genre)
+                .Where(opt => opt.Genre.Name.ToLower() == genre.ToLower())
                 .ToList();
         }
-
     }
 }
