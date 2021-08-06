@@ -29,12 +29,17 @@ namespace BookStore.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<BookService>());
+            
             services.AddAutoMapper(typeof(MappingProfile));
+            
             services.AddDbContext<BookStoreContext>(option => option.UseSqlServer("Server=(localdb)\\Mssqllocaldb;Database=BookStore;Trusted_Connection=True;"));
+            
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IBooksService, BookService>();
+            services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IBooksRepository, EFBooksRepository>();
             services.AddScoped<IGenreRepository, EFGenreRepository>();
+            services.AddScoped<IAuthorRepository, EFAuthorRepository>();
 
             services.AddSwaggerGen(option =>
             {

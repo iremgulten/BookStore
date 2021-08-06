@@ -22,7 +22,7 @@ namespace BookStore.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpPost("{id:int}")]
         public IActionResult GetById(int id)
         {
             var genreResponseList = service.GetGenresById(id);

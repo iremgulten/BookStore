@@ -14,6 +14,10 @@ namespace BookStore.Business.Mapper
             CreateMap<AuthorsTable, AuthorNameResponse>().ReverseMap();
             CreateMap<AuthorsTable, GetBooksByAuthorName>().ReverseMap();
             CreateMap<AuthorNameResponse, GetBooksByAuthorName>().ReverseMap();
+            CreateMap<AuthorsTable, AddNewAuthorRequest>().ReverseMap();
+            CreateMap<AuthorsTable, AuthorsListResponse>().ReverseMap();
+            CreateMap<AuthorsTable, DeleteAuthorRequest>().ReverseMap();
+            CreateMap<AuthorsTable, EditAuthorRequest>().ReverseMap();
 
             CreateMap<BooksTable, AddNewBookRequest>().ReverseMap();
             CreateMap<BooksTable, BooksListResponse>().ReverseMap();
