@@ -20,7 +20,7 @@ namespace BookStore.Business.Services.Concrete
         
         public int AddGenre(AddNewGenreRequest request)
         {
-            var newGenre = mapper.Map<GenresTable>(request);
+            var newGenre = mapper.Map<Genre>(request);
             genreRepository.Add(newGenre);
             return newGenre.Id;
 
@@ -28,7 +28,7 @@ namespace BookStore.Business.Services.Concrete
 
         public void DeleteGenre(GenreListResponse genreListResponse)
         {
-            var genre = mapper.Map<GenresTable>(genreListResponse);
+            var genre = mapper.Map<Genre>(genreListResponse);
             genreRepository.Delete(genre);
         }
 
@@ -40,13 +40,13 @@ namespace BookStore.Business.Services.Concrete
 
         public GenreListResponse GetGenresById(int id)
         {
-            GenresTable genre = genreRepository.GetById(id);
+            Genre genre = genreRepository.GetById(id);
             return mapper.Map<GenreListResponse>(genre);
         }
 
         public int UpdateGenre(EditGenreRequest request)
         {
-            var genre = mapper.Map<GenresTable>(request);
+            var genre = mapper.Map<Genre>(request);
             int id = genreRepository.Update(genre).Id;
             return id;
         }

@@ -7,7 +7,7 @@ using BookStore.Entities;
 
 namespace BookStore.DataAccess.Repositories.Abstract
 {
-    public interface IAuthorRepository : IRepository<AuthorsTable>
+    public interface IAuthorRepository : IRepository<Author>
     {
     }
 }

@@ -15,29 +15,29 @@ namespace BookStore.DataAccess.Repositories.Concrete
             dbContext = context;
         }
 
-        public GenresTable Add(GenresTable entity)
+        public Genre Add(Genre entity)
         {
-            dbContext.GenresTables.Add(entity);
+            dbContext.Genres.Add(entity);
             dbContext.SaveChanges();
             return entity;
         }
 
-        public void Delete(GenresTable entity)
+        public void Delete(Genre entity)
         {
-            dbContext.GenresTables.Remove(entity);
+            dbContext.Genres.Remove(entity);
             dbContext.SaveChanges();
         }
-        public IList<GenresTable> GetAll()
+        public IList<Genre> GetAll()
         {
-            return dbContext.GenresTables.ToList();
+            return dbContext.Genres.ToList();
         }
 
-        public GenresTable GetById(int id)
+        public Genre GetById(int id)
         {
-            return dbContext.GenresTables.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            return dbContext.Genres.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
 
-        public GenresTable Update(GenresTable entity)
+        public Genre Update(Genre entity)
         {
             dbContext.Entry(entity).State = EntityState.Modified;
             dbContext.SaveChanges();

@@ -14,59 +14,59 @@ namespace BookStore.DataAccess.Repositories.Concrete
         {
             dbContext = context;
         }
-        public BooksTable Add(BooksTable entity)
+        public Book Add(Book entity)
         {
-            dbContext.BooksTables.Add(entity);
+            dbContext.Books.Add(entity);
             dbContext.SaveChanges();
             return entity;
         }
-        public void Delete(BooksTable entity)
+        public void Delete(Book entity)
         {
-            dbContext.BooksTables.Remove(entity);
+            dbContext.Books.Remove(entity);
             dbContext.SaveChanges();
         }
-        public BooksTable Update(BooksTable entity)
+        public Book Update(Book entity)
         {
             dbContext.Entry(entity).State = EntityState.Modified;
             dbContext.SaveChanges();
             return entity;
         }
-        public IList<BooksTable> GetAll()
+        public IList<Book> GetAll()
         {
-            return dbContext.BooksTables
+            return dbContext.Books
                 .Include(opt => opt.Author)
                 .Include(opt => opt.Publisher)
                 .Include(opt => opt.Genre).ToList();
         }
-        public BooksTable GetById(int id)
+        public Book GetById(int id)
         {
-            return dbContext.BooksTables
+            return dbContext.Books
                 .Include(opt => opt.Author)
                 .Include(opt => opt.Publisher)
                 .Include(opt => opt.Genre)
                 .AsNoTracking()
                 .FirstOrDefault(opt => opt.Id == id);
         }
-        public IList<BooksTable> GetAllBookFlags()
+        public IList<Book> GetAllBookFlags()
         {
-            return dbContext.BooksTables
+            return dbContext.Books
                 .Include(opt => opt.Author)
                 .Include(opt => opt.Publisher)
                 .Include(opt => opt.Genre).ToList();
         }
         
-        public IList<BooksTable> GetByAuthor(int id)
+        public IList<Book> GetByAuthor(int id)
         {
-            return dbContext.BooksTables
+            return dbContext.Books
                 .Include(opt => opt.Author)
                 .Include(opt => opt.Publisher)
                 .Include(opt => opt.Genre)
                 .Where(opt => opt.AuthorId == id)
                 .ToList();
         }
-        public IList<BooksTable> GetBooksByAuthorName(string author)
+        public IList<Book> GetBooksByAuthorName(string author)
         {
-            return dbContext.BooksTables
+            return dbContext.Books
                 .Include(opt => opt.Author)
                 .Include(opt => opt.Publisher)
                 .Include(opt => opt.Genre)
@@ -74,36 +74,36 @@ namespace BookStore.DataAccess.Repositories.Concrete
                 .ToList();
         }
 
-        public IList<BooksTable>  GetByPublisher(int id)
+        public IList<Book>  GetByPublisher(int id)
         {
-            return dbContext.BooksTables
+            return dbContext.Books
                 .Include(opt => opt.Author)
                 .Include(opt => opt.Publisher)
                 .Include(opt => opt.Genre)
                 .Where(opt => opt.PublisherId == id)
                 .ToList();
         }
-        public IList<BooksTable> GetBooksByPublisherName(string publisher)
+        public IList<Book> GetBooksByPublisherName(string publisher)
         {
-            return dbContext.BooksTables
+            return dbContext.Books
                 .Include(opt => opt.Author)
                 .Include(opt => opt.Publisher)
                 .Include(opt => opt.Genre)
                 .Where(opt => opt.Publisher.Name == publisher)
                 .ToList();
         }
-        public IList<BooksTable> GetByGenre(int id)
+        public IList<Book> GetByGenre(int id)
         {
-            return dbContext.BooksTables
+            return dbContext.Books
                 .Include(opt => opt.Author)
                 .Include(opt => opt.Publisher)
                 .Include(opt => opt.Genre)
                 .Where(opt => opt.GenreId == id)
                 .ToList();
         }
-        public IList<BooksTable> GetBooksByGenreName(string genre)
+        public IList<Book> GetBooksByGenreName(string genre)
         {
-            return dbContext.BooksTables
+            return dbContext.Books
                 .Include(opt => opt.Author)
                 .Include(opt => opt.Publisher)
                 .Include(opt => opt.Genre)

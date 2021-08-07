@@ -6,12 +6,17 @@ using System.Collections.Generic;
 
 namespace BookStore.Entities
 {
-    public partial class UsersTable
+    public partial class Author
     {
+        public Author()
+        {
+            Books = new HashSet<Book>();
+        }
+
         public int Id { get; set; }
         public string NameSurname { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
+        public string Biography { get; set; }
+
+        public virtual ICollection<Book> Books { get; set; }
     }
 }

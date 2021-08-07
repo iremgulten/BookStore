@@ -7,7 +7,7 @@ using BookStore.Entities;
 
 namespace BookStore.DataAccess.Repositories.Abstract
 {
-    public interface IGenreRepository : IRepository<GenresTable>
+    public interface IGenreRepository : IRepository<Genre>
     {
 
     }

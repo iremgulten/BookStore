@@ -24,7 +24,7 @@ namespace BookStore.Business.Services.Concrete
 
         public int AddBook(AddNewBookRequest request)
         {
-            var newBook = mapper.Map<BooksTable>(request);
+            var newBook = mapper.Map<Book>(request);
             bookRepository.Add(newBook);
             return newBook.Id;
         }
@@ -32,13 +32,13 @@ namespace BookStore.Business.Services.Concrete
         public void DeleteBook(BooksListResponse request)
         {
             var temp = mapper.Map<DeleteBookRequest>(request);
-            var book = mapper.Map<BooksTable>(temp);
+            var book = mapper.Map<Book>(temp);
             bookRepository.Delete(book);
         }
 
         public int UpdateBook(EditBookRequest request)
         {
-            var book = mapper.Map<BooksTable>(request);
+            var book = mapper.Map<Book>(request);
             return bookRepository.Update(book).Id;
         }
 
@@ -50,7 +50,7 @@ namespace BookStore.Business.Services.Concrete
 
         public BooksListResponse GetBooksById(int id)
         {
-            BooksTable book = bookRepository.GetById(id);
+            Book book = bookRepository.GetById(id);
             return mapper.Map<BooksListResponse>(book);
         }
 

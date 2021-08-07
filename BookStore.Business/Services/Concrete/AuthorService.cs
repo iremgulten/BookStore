@@ -22,14 +22,14 @@ namespace BookStore.Business.Services.Concrete
         }
         public int AddAuthor(AddNewAuthorRequest request)
         {
-            var newAuthor = mapper.Map<AuthorsTable>(request);
+            var newAuthor = mapper.Map<Author>(request);
             authorRepository.Add(newAuthor);
             return newAuthor.Id;
         }
 
         public void DeleteAuthor(AuthorsListResponse request)
         {
-            var author = mapper.Map<AuthorsTable>(request);
+            var author = mapper.Map<Author>(request);
             authorRepository.Delete(author);
         }
 
@@ -41,7 +41,7 @@ namespace BookStore.Business.Services.Concrete
 
         public AuthorsListResponse GetAuthorById(int id)
         {
-            AuthorsTable genre = authorRepository.GetById(id);
+            Author genre = authorRepository.GetById(id);
             return mapper.Map<AuthorsListResponse>(genre);
         }
 

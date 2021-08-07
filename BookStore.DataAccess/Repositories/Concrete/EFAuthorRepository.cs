@@ -17,32 +17,32 @@ namespace BookStore.DataAccess.Repositories.Concrete
         {
             dbContext = context;
         }
-        public AuthorsTable Add(AuthorsTable entity)
+        public Author Add(Author entity)
         {
-            dbContext.AuthorsTables.Add(entity);
+            dbContext.Authors.Add(entity);
             dbContext.SaveChanges();
             return entity;
         }
 
-        public void Delete(AuthorsTable entity)
+        public void Delete(Author entity)
         {
-            var deletedBook = dbContext.BooksTables.FirstOrDefault(x => x.AuthorId == entity.Id);
-            dbContext.BooksTables.Remove(deletedBook);
-            dbContext.AuthorsTables.Remove(entity);
+            var deletedBook = dbContext.Books.FirstOrDefault(x => x.AuthorId == entity.Id);
+            dbContext.Books.Remove(deletedBook);
+            dbContext.Authors.Remove(entity);
             dbContext.SaveChanges();
         }
 
-        public IList<AuthorsTable> GetAll()
+        public IList<Author> GetAll()
         {
-            return dbContext.AuthorsTables.ToList();
+            return dbContext.Authors.ToList();
         }
 
-        public AuthorsTable GetById(int id)
+        public Author GetById(int id)
         {
-            return dbContext.AuthorsTables.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            return dbContext.Authors.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
 
-        public AuthorsTable Update(AuthorsTable entity)
+        public Author Update(Author entity)
         {
             throw new NotImplementedException();
         }
