@@ -37,9 +37,13 @@ namespace BookStore.API
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IBooksService, BookService>();
             services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IPublisherService, PublisherService>();
+
             services.AddScoped<IBooksRepository, EFBooksRepository>();
             services.AddScoped<IGenreRepository, EFGenreRepository>();
             services.AddScoped<IAuthorRepository, EFAuthorRepository>();
+            services.AddScoped<IPublisherRepository, EFPublisherRepository>();
+
 
             services.AddSwaggerGen(option =>
             {

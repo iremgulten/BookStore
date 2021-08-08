@@ -45,9 +45,12 @@ namespace BookStore.Business.Services.Concrete
             return mapper.Map<AuthorsListResponse>(genre);
         }
 
-        public int UpdateAuthor(EditAuthorRequest request)
+        public int UpdateAuthor(int id, EditAuthorRequest request)
         {
-            throw new NotImplementedException();
+            var author = mapper.Map<Author>(request);
+            author.Id = id;
+            authorRepository.Update(author);
+            return id;
         }
     }
 }

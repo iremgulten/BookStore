@@ -37,7 +37,7 @@ namespace BookStore.API.Controllers
             return NotFound();
         }
         [HttpPost("AddNewAuthor")]
-        public IActionResult AddBook(AddNewAuthorRequest request)
+        public IActionResult AddAuthor(AddNewAuthorRequest request)
         {
             service.AddAuthor(request);
             return Ok();
@@ -45,7 +45,7 @@ namespace BookStore.API.Controllers
         }
 
         [HttpDelete("DeleteAuthor/{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteAuthor(int id)
         {
             var isExisting = service.GetAuthorById(id);
             if (isExisting == null)
@@ -54,6 +54,23 @@ namespace BookStore.API.Controllers
             }
             service.DeleteAuthor(isExisting);
             return Ok();
+        }
+
+        [HttpPut("UpdateAuthor/{id}")]
+        public IActionResult UpdateGenre(int id, EditAuthorRequest request)
+        {
+            var isExisting = service.GetAuthorById(id);
+            if (isExisting == null)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                service.UpdateAuthor(id, request);
+                return Ok();
+
+            }
+            return BadRequest();
         }
 
     }

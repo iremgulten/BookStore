@@ -12,7 +12,7 @@ namespace BookStore.Business.Services.Abstract
 
         int AddBook(AddNewBookRequest request);
         void DeleteBook(BooksListResponse request);
-        int UpdateBook(EditBookRequest request);
+        int UpdateBook(int id,EditBookRequest request);
         IList<BooksListResponse> GetAllBooks();
         BooksListResponse GetBooksById(int id);
         public IList<BookFlagsResponse> GetAllBookFlags();

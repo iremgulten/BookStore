@@ -36,9 +36,10 @@ namespace BookStore.Business.Services.Concrete
             bookRepository.Delete(book);
         }
 
-        public int UpdateBook(EditBookRequest request)
+        public int UpdateBook(int id, EditBookRequest request)
         {
             var book = mapper.Map<Book>(request);
+            book.Id = id;
             return bookRepository.Update(book).Id;
         }
 

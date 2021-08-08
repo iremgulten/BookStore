@@ -8,7 +8,7 @@ namespace BookStore.Business.Services.Abstract
         IList<GenreListResponse> GetAllGenres();
         int AddGenre(AddNewGenreRequest request);
         GenreListResponse GetGenresById(int id);
-        int UpdateGenre(EditGenreRequest request);
+        int UpdateGenre(int id,EditGenreRequest request);
         void DeleteGenre(GenreListResponse request);
     }
 }

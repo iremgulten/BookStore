@@ -26,8 +26,6 @@ namespace BookStore.DataAccess.Repositories.Concrete
 
         public void Delete(Author entity)
         {
-            var deletedBook = dbContext.Books.FirstOrDefault(x => x.AuthorId == entity.Id);
-            dbContext.Books.Remove(deletedBook);
             dbContext.Authors.Remove(entity);
             dbContext.SaveChanges();
         }
@@ -44,7 +42,9 @@ namespace BookStore.DataAccess.Repositories.Concrete
 
         public Author Update(Author entity)
         {
-            throw new NotImplementedException();
+            dbContext.Authors.Update(entity);
+            dbContext.SaveChanges();
+            return entity;
         }
     }
 }

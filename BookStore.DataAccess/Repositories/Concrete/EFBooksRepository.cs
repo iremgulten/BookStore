@@ -70,7 +70,7 @@ namespace BookStore.DataAccess.Repositories.Concrete
                 .Include(opt => opt.Author)
                 .Include(opt => opt.Publisher)
                 .Include(opt => opt.Genre)
-                .Where(opt => opt.Author.NameSurname == author)
+                .Where(opt => opt.Author.NameSurname.ToLower() == author.ToLower())
                 .ToList();
         }
 
@@ -89,7 +89,7 @@ namespace BookStore.DataAccess.Repositories.Concrete
                 .Include(opt => opt.Author)
                 .Include(opt => opt.Publisher)
                 .Include(opt => opt.Genre)
-                .Where(opt => opt.Publisher.Name == publisher)
+                .Where(opt => opt.Publisher.Name.ToLower() == publisher.ToLower())
                 .ToList();
         }
         public IList<Book> GetByGenre(int id)

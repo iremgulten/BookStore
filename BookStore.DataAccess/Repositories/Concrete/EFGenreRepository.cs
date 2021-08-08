@@ -39,7 +39,7 @@ namespace BookStore.DataAccess.Repositories.Concrete
 
         public Genre Update(Genre entity)
         {
-            dbContext.Entry(entity).State = EntityState.Modified;
+            dbContext.Genres.Update(entity);
             dbContext.SaveChanges();
             return entity;
         }

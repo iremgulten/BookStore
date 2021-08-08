@@ -44,10 +44,11 @@ namespace BookStore.Business.Services.Concrete
             return mapper.Map<GenreListResponse>(genre);
         }
 
-        public int UpdateGenre(EditGenreRequest request)
+        public int UpdateGenre(int id ,EditGenreRequest request)
         {
             var genre = mapper.Map<Genre>(request);
-            int id = genreRepository.Update(genre).Id;
+            genre.Id = id;
+            genreRepository.Update(genre);
             return id;
         }
     }

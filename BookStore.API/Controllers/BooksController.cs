@@ -42,7 +42,7 @@ namespace BookStore.API.Controllers
             return NotFound();
         }
         [HttpPost("GetByAuthor/{id:int}")]
-        public IActionResult GetByAuthor(int id)
+        public IActionResult GetByAuthorId(int id)
         {
             var books = service.GetBooksByAuthor(id);
             if (books != null)
@@ -62,7 +62,7 @@ namespace BookStore.API.Controllers
             return NotFound();
         }
         [HttpPost("GetByPublisher/{id:int}")]
-        public IActionResult GetByPublisher(int id)
+        public IActionResult GetByPublisherId(int id)
         {
             var books = service.GetBooksByPublisher(id);
             if (books != null)
@@ -82,7 +82,7 @@ namespace BookStore.API.Controllers
             return NotFound();
         }
         [HttpPost("GetByGenre/{id:int}")]
-        public IActionResult GetByGenre(int id)
+        public IActionResult GetByGenreId(int id)
         {
             var books = service.GetBooksByGenre(id);
             if (books != null)
@@ -91,7 +91,7 @@ namespace BookStore.API.Controllers
             }
             return NotFound();
         }
-        [HttpPost("GetByGenreName")]
+        [HttpPost("GetByGenreName/{genre}")]
         public IActionResult GetBooksByGenreName(EditGenreRequest genre)
         {
             var books = service.GetBooksByGenreName(genre);
@@ -105,11 +105,11 @@ namespace BookStore.API.Controllers
         [HttpPost("AddNewBook")]
         public IActionResult AddBook(AddNewBookRequest request)
         {
-            service.AddBook(request);
+            var id = service.AddBook(request);
             return Ok();
 
         }
-        [HttpPut("UpdateBook/{id}")]
+        [HttpPut("UpdateBook/{id:int}")]
         public IActionResult UpdateBook(int id, EditBookRequest request)
         {
             var isExisting = service.GetBooksById(id);
@@ -117,11 +117,11 @@ namespace BookStore.API.Controllers
             {
                 return NotFound();
             }
-            service.UpdateBook(request);
+            service.UpdateBook(id,request);
             return Ok();  
         }
         [HttpDelete("DeleteBook/{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteBook(int id)
         {
             var isExisting = service.GetBooksById(id);
             if (isExisting == null)

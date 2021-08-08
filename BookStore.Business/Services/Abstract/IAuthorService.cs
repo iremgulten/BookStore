@@ -12,7 +12,7 @@ namespace BookStore.Business.Services.Abstract
         IList<AuthorsListResponse> GetAllAuthors();
         int AddAuthor(AddNewAuthorRequest request);
         AuthorsListResponse GetAuthorById(int id);
-        int UpdateAuthor(EditAuthorRequest request);
+        int UpdateAuthor(int id, EditAuthorRequest request);
         void DeleteAuthor(AuthorsListResponse request);
     }
 }

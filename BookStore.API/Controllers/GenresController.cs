@@ -15,14 +15,14 @@ namespace BookStore.API.Controllers
             service = genreService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllGenres")]
         public IActionResult Get()
         {
             var result = service.GetAllGenres();
             return Ok(result);
         }
 
-        [HttpPost("{id:int}")]
+        [HttpPost("GetGenreById/{id:int}")]
         public IActionResult GetById(int id)
         {
             var genreResponseList = service.GetGenresById(id);
@@ -33,7 +33,7 @@ namespace BookStore.API.Controllers
             return NotFound();
         }
 
-        [HttpPost]
+        [HttpPost("AddNewGenre")]
         public IActionResult AddGenre(AddNewGenreRequest request)
         {
             if (ModelState.IsValid)
@@ -43,8 +43,7 @@ namespace BookStore.API.Controllers
             }
             return BadRequest();
         }
-        [HttpPut("{id}")]
-
+        [HttpPut("UpdateGenre/{id}")]
         public IActionResult UpdateGenre(int id,EditGenreRequest request)
         {
             var isExisting = service.GetGenresById(id);
@@ -54,13 +53,13 @@ namespace BookStore.API.Controllers
             }
             if (ModelState.IsValid)
             {
-                service.UpdateGenre(request);
+                service.UpdateGenre(id,request);
                 return Ok();
 
             }
             return BadRequest();
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteGenre/{id}")]
         public IActionResult Delete(int id)
         {
             var isExisting = service.GetGenresById(id);
@@ -71,9 +70,5 @@ namespace BookStore.API.Controllers
             service.DeleteGenre(isExisting);
             return Ok();
         }
-
-
-
-
     }
 }
