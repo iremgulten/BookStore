@@ -3,6 +3,7 @@ using BookStore.Business.DataTransferObjects.BooksDTO;
 using BookStore.Business.DataTransferObjects.GenresDTO;
 using BookStore.Business.DataTransferObjects.PublishersDTO;
 using BookStore.Business.Services.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.API.Controllers
@@ -103,6 +104,7 @@ namespace BookStore.API.Controllers
         }
 
         [HttpPost("AddNewBook")]
+        [Authorize(Roles = "Admin")]
         public IActionResult AddBook(AddNewBookRequest request)
         {
             var id = service.AddBook(request);
@@ -110,6 +112,7 @@ namespace BookStore.API.Controllers
 
         }
         [HttpPut("UpdateBook/{id:int}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult UpdateBook(int id, EditBookRequest request)
         {
             var isExisting = service.GetBooksById(id);
@@ -121,6 +124,7 @@ namespace BookStore.API.Controllers
             return Ok();  
         }
         [HttpDelete("DeleteBook/{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteBook(int id)
         {
             var isExisting = service.GetBooksById(id);

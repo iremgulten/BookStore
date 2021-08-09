@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookStore.Business.DataTransferObjects.PublishersDTO;
 using BookStore.Business.Services.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,6 +38,7 @@ namespace BookStore.API.Controllers
         }
 
         [HttpPost("AddNewPublisher")]
+        [Authorize(Roles = "Admin")]
         public IActionResult AddPublisher(AddNewPublisherRequest request)
         {
             if (ModelState.IsValid)
@@ -47,6 +49,7 @@ namespace BookStore.API.Controllers
             return BadRequest();
         }
         [HttpPut("UpdatePublisher/{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult UpdatePublisher(int id, EditPublisherRequest request)
         {
             var isExisting = service.GetPublisherById(id);
@@ -63,6 +66,7 @@ namespace BookStore.API.Controllers
             return BadRequest();
         }
         [HttpDelete("DeletePublisher/{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeletePublisher(int id)
         {
             var isExisting = service.GetPublisherById(id);

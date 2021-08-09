@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookStore.Business.DataTransferObjects;
 using BookStore.Business.DataTransferObjects.AuthorsDTO;
 using BookStore.Business.DataTransferObjects.BooksDTO;
 using BookStore.Business.DataTransferObjects.GenresDTO;
@@ -38,6 +39,9 @@ namespace BookStore.Business.Mapper
             CreateMap<Publisher, AddNewPublisherRequest>().ReverseMap();
             CreateMap<Publisher, EditPublisherRequest>().ReverseMap();
             CreateMap<Publisher, PublisherListResponse>().ReverseMap();
+        
+            CreateMap<UsersTable, UserLoginModel>().ReverseMap();
+
         }
     }
 }

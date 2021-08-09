@@ -1,3 +1,4 @@
+using System.Text;
 using BookStore.API.Middleware;
 using BookStore.Business.Mapper;
 using BookStore.Business.Services.Abstract;
@@ -6,12 +7,14 @@ using BookStore.DataAccess;
 using BookStore.DataAccess.Repositories.Abstract;
 using BookStore.DataAccess.Repositories.Concrete;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace BookStore.API
@@ -38,17 +41,41 @@ namespace BookStore.API
             services.AddScoped<IBooksService, BookService>();
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IPublisherService, PublisherService>();
+            services.AddScoped<IUserService, UserService>();
+
 
             services.AddScoped<IBooksRepository, EFBooksRepository>();
             services.AddScoped<IGenreRepository, EFGenreRepository>();
             services.AddScoped<IAuthorRepository, EFAuthorRepository>();
             services.AddScoped<IPublisherRepository, EFPublisherRepository>();
+            services.AddScoped<IUserRepository, EFUserRepository>();
+
 
 
             services.AddSwaggerGen(option =>
             {
-                option.SwaggerDoc("v1", new OpenApiInfo { Title = "BookStore.API", Version = "v1" });
+                option.SwaggerDoc("v1", new OpenApiInfo { Title = "BookStore API", Version = "v1" });
                });
+
+            var issuer = Configuration.GetSection("Bearer")["Issuer"];
+            var audience = Configuration.GetSection("Bearer")["Audience"];
+            var key = Configuration.GetSection("Bearer")["SecurityKey"];
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(opt =>
+                    {
+                        opt.TokenValidationParameters = new TokenValidationParameters()
+                        {
+                            ValidateActor = true,
+                            ValidateAudience = true,
+                            ValidateIssuer = true,
+                            ValidateIssuerSigningKey = true,
+                            ValidIssuer = issuer,
+                            ValidAudience = audience,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+                        };
+                    });
+
 
         }
 
@@ -67,6 +94,8 @@ namespace BookStore.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
