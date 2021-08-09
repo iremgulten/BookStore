@@ -9,6 +9,7 @@ using BookStore.Business.DataTransferObjects;
 using BookStore.Business.Services.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace BookStore.API.Controllers
@@ -18,9 +19,11 @@ namespace BookStore.API.Controllers
     public class AccountController : ControllerBase
     {
         private IUserService userService;
-        public AccountController(IUserService userService)
+        private IConfiguration configuration;
+        public AccountController(IUserService userService,IConfiguration configuration)
         {
             this.userService = userService;
+            this.configuration = configuration;
         }
         [HttpPost]
         public IActionResult Login(UserLoginModel userLoginModel)
@@ -38,7 +41,8 @@ namespace BookStore.API.Controllers
                 new Claim(JwtRegisteredClaimNames.Email,user.Email),
                 new Claim(ClaimTypes.Role,user.Role)
             };
-            var key = "Json Web Token,Book store security key.";
+
+            var key = configuration.GetSection("Bearer")["SecurityKey"];
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             var credential = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512);
 
