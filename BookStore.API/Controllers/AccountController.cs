@@ -28,7 +28,7 @@ namespace BookStore.API.Controllers
             var user = userService.GetUser(userLoginModel.Email, userLoginModel.Password);
             if(user == null)
             {
-                return BadRequest(new { message = "Wrong Email or Password" });
+                return Unauthorized(new { message = "Wrong Email or Password" });
             }
 
             var issuer = "iremgulten.com";
