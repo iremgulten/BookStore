@@ -1,8 +1,8 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using BookStore.Business.Services.Abstract;
 using BookStore.Business.DataTransferObjects.GenresDTO;
 using Microsoft.AspNetCore.Authorization;
+using BookStore.Business.DataTransferObjects.UserIdentityDTO;
 
 namespace BookStore.API.Controllers
 {
@@ -35,7 +35,7 @@ namespace BookStore.API.Controllers
         }
 
         [HttpPost("AddNewGenre")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserRoles.Admin)]
         public IActionResult AddGenre(AddNewGenreRequest request)
         {
             if (ModelState.IsValid)
@@ -46,7 +46,7 @@ namespace BookStore.API.Controllers
             return BadRequest();
         }
         [HttpPut("UpdateGenre/{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserRoles.Admin)]
         public IActionResult UpdateGenre(int id,EditGenreRequest request)
         {
             var isExisting = service.GetGenresById(id);
@@ -63,7 +63,7 @@ namespace BookStore.API.Controllers
             return BadRequest();
         }
         [HttpDelete("DeleteGenre/{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserRoles.Admin)]
         public IActionResult Delete(int id)
         {
             var isExisting = service.GetGenresById(id);

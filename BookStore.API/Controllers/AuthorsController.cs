@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BookStore.Business.DataTransferObjects.AuthorsDTO;
+﻿using BookStore.Business.DataTransferObjects.AuthorsDTO;
+using BookStore.Business.DataTransferObjects.UserIdentityDTO;
 using BookStore.Business.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.API.Controllers
@@ -27,7 +23,8 @@ namespace BookStore.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("GetAuthorById/{id:int}")]
+        [HttpPost]
+        [Route("GetAuthorById/{id:int}")]
         public IActionResult GetById(int id)
         {
             var author = service.GetAuthorById(id);
@@ -38,7 +35,7 @@ namespace BookStore.API.Controllers
             return NotFound();
         }
         [HttpPost("AddNewAuthor")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserRoles.Admin)]
         public IActionResult AddAuthor(AddNewAuthorRequest request)
         {
             service.AddAuthor(request);
@@ -47,7 +44,7 @@ namespace BookStore.API.Controllers
         }
 
         [HttpDelete("DeleteAuthor/{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserRoles.Admin)]
         public IActionResult DeleteAuthor(int id)
         {
             var isExisting = service.GetAuthorById(id);
@@ -60,7 +57,7 @@ namespace BookStore.API.Controllers
         }
 
         [HttpPut("UpdateAuthor/{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserRoles.Admin)]
         public IActionResult UpdateGenre(int id, EditAuthorRequest request)
         {
             var isExisting = service.GetAuthorById(id);

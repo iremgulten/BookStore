@@ -10,6 +10,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,21 +37,27 @@ namespace BookStore.API
             services.AddAutoMapper(typeof(MappingProfile));
             
             services.AddDbContext<BookStoreContext>(option => option.UseSqlServer("Server=(localdb)\\Mssqllocaldb;Database=BookStore;Trusted_Connection=True;"));
-            
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(opt =>
+                {
+                    opt.Password.RequireNonAlphanumeric = false;
+                    opt.Password.RequireUppercase = false;
+                    opt.Password.RequireLowercase = false;
+                    opt.Password.RequireDigit = false;
+                    opt.Password.RequiredLength = 8;
+                })
+                .AddEntityFrameworkStores<BookStoreContext>()
+                .AddDefaultTokenProviders();
+
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IBooksService, BookService>();
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IPublisherService, PublisherService>();
-            services.AddScoped<IUserService, UserService>();
-
 
             services.AddScoped<IBooksRepository, EFBooksRepository>();
             services.AddScoped<IGenreRepository, EFGenreRepository>();
             services.AddScoped<IAuthorRepository, EFAuthorRepository>();
             services.AddScoped<IPublisherRepository, EFPublisherRepository>();
-            services.AddScoped<IUserRepository, EFUserRepository>();
-
-
 
             services.AddSwaggerGen(option =>
             {
@@ -61,7 +68,10 @@ namespace BookStore.API
             var audience = Configuration.GetSection("Bearer")["Audience"];
             var key = Configuration.GetSection("Bearer")["SecurityKey"];
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            services.AddAuthentication(options =>
+                    {
+                        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    })
                     .AddJwtBearer(opt =>
                     {
                         opt.TokenValidationParameters = new TokenValidationParameters()
@@ -75,8 +85,6 @@ namespace BookStore.API
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
                         };
                     });
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

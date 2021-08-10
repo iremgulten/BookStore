@@ -39,9 +39,6 @@ namespace BookStore.Business.Mapper
             CreateMap<Publisher, AddNewPublisherRequest>().ReverseMap();
             CreateMap<Publisher, EditPublisherRequest>().ReverseMap();
             CreateMap<Publisher, PublisherListResponse>().ReverseMap();
-        
-            CreateMap<UsersTable, UserLoginModel>().ReverseMap();
-
         }
     }
 }
