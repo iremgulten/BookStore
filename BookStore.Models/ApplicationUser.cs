@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace BookStore.DataAccess
+namespace BookStore.Entities
 {
     public class ApplicationUser : IdentityUser
     {

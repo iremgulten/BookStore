@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using BookStore.Business.DataTransferObjects.UserIdentityDTO;
-using BookStore.DataAccess;
+using BookStore.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -79,7 +79,6 @@ namespace BookStore.API.Controllers
             ApplicationUser user = new ApplicationUser()
             {
                 Email = model.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username
             };
             var result = await userManager.CreateAsync(user, model.Password);
@@ -100,17 +99,11 @@ namespace BookStore.API.Controllers
             ApplicationUser user = new ApplicationUser()
             {
                 Email = model.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username
             };
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
-
-            if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
-                await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
-            if (!await roleManager.RoleExistsAsync(UserRoles.User))
-                await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
 
             if (await roleManager.RoleExistsAsync(UserRoles.Admin))
             {

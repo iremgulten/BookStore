@@ -27,7 +27,7 @@ namespace BookStore.DataAccess.Repositories.Concrete
         }
         public Book Update(Book entity)
         {
-            dbContext.Entry(entity).State = EntityState.Modified;
+            dbContext.Books.Update(entity);
             dbContext.SaveChanges();
             return entity;
         }

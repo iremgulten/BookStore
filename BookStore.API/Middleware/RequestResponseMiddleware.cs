@@ -32,7 +32,7 @@ namespace BookStore.API.Middleware
             await next.Invoke(httpContext);
 
             newBody.Seek(0, SeekOrigin.Begin);
-            var bodyText = await new StreamReader(httpContext.Response.Body).ReadToEndAsync();
+            var bodyText = await new StreamReader(httpContext.Response.Body,Encoding.UTF8).ReadToEndAsync();
             logger.LogError($"Response: {bodyText}");
             newBody.Seek(0, SeekOrigin.Begin);
             await newBody.CopyToAsync(originalBody);

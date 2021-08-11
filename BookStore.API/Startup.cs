@@ -6,6 +6,7 @@ using BookStore.Business.Services.Concrete;
 using BookStore.DataAccess;
 using BookStore.DataAccess.Repositories.Abstract;
 using BookStore.DataAccess.Repositories.Concrete;
+using BookStore.Entities;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -71,6 +72,7 @@ namespace BookStore.API
             services.AddAuthentication(options =>
                     {
                         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                     })
                     .AddJwtBearer(opt =>
                     {
