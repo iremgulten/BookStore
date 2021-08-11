@@ -23,8 +23,7 @@ namespace BookStore.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
-        [Route("GetAuthorById/{id:int}")]
+        [HttpPost("GetAuthorById/{id:int}")]
         public IActionResult GetById(int id)
         {
             var author = service.GetAuthorById(id);
