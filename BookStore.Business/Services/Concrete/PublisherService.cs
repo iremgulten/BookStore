@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using BookStore.Business.DataTransferObjects.PublishersDTO;
 using BookStore.Business.Services.Abstract;
 using BookStore.DataAccess.Repositories.Abstract;
-using BookStore.Entities;
+using BookStore.Entities.BookStoreEntities;
 
 namespace BookStore.Business.Services.Concrete
 {

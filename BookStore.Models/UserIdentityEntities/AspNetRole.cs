@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace BookStore.Entities
+namespace BookStore.Entities.UserIdentityEntities
 {
     public partial class AspNetRole
     {

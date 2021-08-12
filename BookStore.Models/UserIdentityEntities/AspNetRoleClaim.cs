@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace BookStore.Entities
+namespace BookStore.Entities.UserIdentityEntities
 {
-    public partial class AspNetUserClaim
+    public partial class AspNetRoleClaim
     {
         public int Id { get; set; }
-        public string UserId { get; set; }
+        public string RoleId { get; set; }
         public string ClaimType { get; set; }
         public string ClaimValue { get; set; }
 
-        public virtual AspNetUser User { get; set; }
+        public virtual AspNetRole Role { get; set; }
     }
 }

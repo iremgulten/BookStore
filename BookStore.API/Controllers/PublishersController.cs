@@ -48,18 +48,16 @@ namespace BookStore.API.Controllers
         [Authorize(Roles = UserRoles.Admin)]
         public IActionResult UpdatePublisher(int id, EditPublisherRequest request)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
             var isExisting = service.GetPublisherById(id);
             if (isExisting == null)
             {
                 return NotFound();
             }
-            if (ModelState.IsValid)
-            {
-                service.UpdatePublisher(id, request);
-                return Ok();
-
-            }
-            return BadRequest();
+            service.UpdatePublisher(id, request);
+            return Ok();
+            
         }
         [HttpDelete("DeletePublisher/{id}")]
         [Authorize(Roles = UserRoles.Admin)]

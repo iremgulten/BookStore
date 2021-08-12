@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using BookStore.Business.DataTransferObjects;
 using BookStore.Business.DataTransferObjects.AuthorsDTO;
 using BookStore.Business.DataTransferObjects.BooksDTO;
 using BookStore.Business.DataTransferObjects.GenresDTO;
 using BookStore.Business.DataTransferObjects.PublishersDTO;
-using BookStore.Entities;
+using BookStore.Entities.BookStoreEntities;
 
 namespace BookStore.Business.Mapper
 {

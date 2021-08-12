@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using BookStore.Business.DataTransferObjects.UserIdentityDTO;
-using BookStore.Entities;
+using BookStore.Entities.UserIdentityEntities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -54,7 +54,7 @@ namespace BookStore.API.Controllers
                 var token = new JwtSecurityToken(
                     issuer: _configuration.GetSection("Bearer")["Issuer"],
                     audience: _configuration.GetSection("Bearer")["Audience"],
-                    expires: DateTime.Now.AddHours(3),
+                    expires: DateTime.Now.AddHours(8),                    
                     claims: authClaims,
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
