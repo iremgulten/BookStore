@@ -11,16 +11,16 @@ namespace BookStore.Business.Services.Abstract
     {
 
         int AddBook(AddNewBookRequest request);
-        void DeleteBook(BooksListResponse request);
+        void DeleteBook(BookListRequest request);
         int UpdateBook(int id,EditBookRequest request);
-        IList<BooksListResponse> GetAllBooks();
-        BooksListResponse GetBooksById(int id);
-        public IList<BookFlagsResponse> GetAllBookFlags();
-        IList<BookFlagsResponse> GetBooksByAuthor(int authorId);
-        IList<BookFlagsResponse> GetBooksByAuthorName(GetBooksByAuthorName author);
-        IList<BookFlagsResponse> GetBooksByPublisher(int publisherId);
-        IList<BookFlagsResponse> GetBooksByPublisherName(GetBooksByPublisherName publisher);
-        IList<BookFlagsResponse> GetBooksByGenre(int genreId);
-        IList<BookFlagsResponse> GetBooksByGenreName(EditGenreRequest genre);
+        IList<BookListRequest> GetAllBooks();
+        BookListRequest GetBooksById(int id);
+        public IList<BookFlagsRequest> GetAllBookFlags();
+        IList<BookFlagsRequest> GetBooksByAuthor(int authorId);
+        IList<BookFlagsRequest> GetBooksByAuthorName(GetBooksByAuthorName author);
+        IList<BookFlagsRequest> GetBooksByPublisher(int publisherId);
+        IList<BookFlagsRequest> GetBooksByPublisherName(GetBooksByPublisherName publisher);
+        IList<BookFlagsRequest> GetBooksByGenre(int genreId);
+        IList<BookFlagsRequest> GetBooksByGenreName(EditGenreRequest genre);
     }
 }

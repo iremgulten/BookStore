@@ -24,22 +24,22 @@ namespace BookStore.Business.Services.Concrete
             return newPublisher.Id;
         }
 
-        public void DeletePublisher(PublisherListResponse publisherListResponse)
+        public void DeletePublisher(PublisherListRequest publisherListResponse)
         {
             var publisher = mapper.Map<Publisher>(publisherListResponse);
             publisherRepository.Delete(publisher);
         }
 
-        public IList<PublisherListResponse> GetAllPublishers()
+        public IList<PublisherListRequest> GetAllPublishers()
         {
             var dtoList = publisherRepository.GetAll().ToList();
-            return mapper.Map<List<PublisherListResponse>>(dtoList);
+            return mapper.Map<List<PublisherListRequest>>(dtoList);
         }
 
-        public PublisherListResponse GetPublisherById(int id)
+        public PublisherListRequest GetPublisherById(int id)
         {
             Publisher publisher = publisherRepository.GetById(id);
-            return mapper.Map<PublisherListResponse>(publisher);
+            return mapper.Map<PublisherListRequest>(publisher);
         }
 
         public int UpdatePublisher(int id, EditPublisherRequest request)

@@ -11,33 +11,33 @@ namespace BookStore.Business.Mapper
     {
         public MappingProfile()
         {
-            CreateMap<Author, AuthorNameResponse>().ReverseMap();
+            CreateMap<Author, AuthorNameRequest>().ReverseMap();
             CreateMap<Author, GetBooksByAuthorName>().ReverseMap();
-            CreateMap<AuthorNameResponse, GetBooksByAuthorName>().ReverseMap();
+            CreateMap<AuthorNameRequest, GetBooksByAuthorName>().ReverseMap();
             CreateMap<Author, AddNewAuthorRequest>().ReverseMap();
-            CreateMap<Author, AuthorsListResponse>().ReverseMap();
+            CreateMap<Author, AuthorsListRequest>().ReverseMap();
             CreateMap<Author, DeleteAuthorRequest>().ReverseMap();
             CreateMap<Author, EditAuthorRequest>().ReverseMap();
 
             CreateMap<Book, AddNewBookRequest>().ReverseMap();
-            CreateMap<Book, BooksListResponse>().ReverseMap();
-            CreateMap<Book, BookFlagsResponse>().ReverseMap();
+            CreateMap<Book, BookListRequest>().ReverseMap();
+            CreateMap<Book, BookFlagsRequest>().ReverseMap();
             CreateMap<Book, EditBookRequest>().ReverseMap();
             CreateMap<Book, DeleteBookRequest>().ReverseMap();
-            CreateMap<DeleteBookRequest, BooksListResponse>().ReverseMap();
+            CreateMap<DeleteBookRequest, BookListRequest>().ReverseMap();
 
-            CreateMap<Genre, GenreListResponse>().ReverseMap();
+            CreateMap<Genre, GenreListRequest>().ReverseMap();
             CreateMap<Genre, AddNewGenreRequest>().ReverseMap();
             CreateMap<Genre, EditGenreRequest>().ReverseMap();
-            CreateMap<Genre, GenreNameResponse>().ReverseMap();
-            CreateMap<GenreNameResponse, AddNewGenreRequest>().ReverseMap();
+            CreateMap<Genre, GenreNameRequest>().ReverseMap();
+            CreateMap<GenreNameRequest, AddNewGenreRequest>().ReverseMap();
 
-            CreateMap<Publisher, PublisherNameResponse>().ReverseMap();
+            CreateMap<Publisher, PublisherNameRequest>().ReverseMap();
             CreateMap<Publisher, GetBooksByPublisherName>().ReverseMap();
-            CreateMap<PublisherNameResponse, GetBooksByPublisherName>().ReverseMap();
+            CreateMap<PublisherNameRequest, GetBooksByPublisherName>().ReverseMap();
             CreateMap<Publisher, AddNewPublisherRequest>().ReverseMap();
             CreateMap<Publisher, EditPublisherRequest>().ReverseMap();
-            CreateMap<Publisher, PublisherListResponse>().ReverseMap();
+            CreateMap<Publisher, PublisherListRequest>().ReverseMap();
         }
     }
 }

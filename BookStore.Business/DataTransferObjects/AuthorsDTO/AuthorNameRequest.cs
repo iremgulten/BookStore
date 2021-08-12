@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookStore.Business.DataTransferObjects.PublishersDTO
+namespace BookStore.Business.DataTransferObjects.AuthorsDTO
 {
-    public class PublisherNameResponse
+    public class AuthorNameRequest
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string NameSurname { get; set; }
     }
 }

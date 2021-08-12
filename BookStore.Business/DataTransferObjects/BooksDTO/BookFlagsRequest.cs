@@ -4,7 +4,7 @@ using BookStore.Business.DataTransferObjects.PublishersDTO;
 
 namespace BookStore.Business.DataTransferObjects.BooksDTO
 {
-    public class BookFlagsResponse
+    public class BookFlagsRequest
     {
         public string Title { get; set; }
         public GetBooksByAuthorName Author { get; set; }

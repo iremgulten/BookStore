@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Business.DataTransferObjects.PublishersDTO
 {
-    public class PublisherListResponse
+    public class PublisherListRequest
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -5,10 +5,10 @@ namespace BookStore.Business.Services.Abstract
 {
     public interface IGenreService
     {
-        IList<GenreListResponse> GetAllGenres();
+        IList<GenreListRequest> GetAllGenres();
         int AddGenre(AddNewGenreRequest request);
-        GenreListResponse GetGenresById(int id);
+        GenreListRequest GetGenresById(int id);
         int UpdateGenre(int id,EditGenreRequest request);
-        void DeleteGenre(GenreListResponse request);
+        void DeleteGenre(GenreListRequest request);
     }
 }

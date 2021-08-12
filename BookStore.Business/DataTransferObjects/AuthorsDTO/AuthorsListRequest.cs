@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Business.DataTransferObjects.AuthorsDTO
 {
-    public class AuthorsListResponse
+    public class AuthorsListRequest
     {
         public int Id { get; set; }
         public string NameSurname { get; set; }

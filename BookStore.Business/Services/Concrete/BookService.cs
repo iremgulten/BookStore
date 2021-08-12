@@ -27,7 +27,7 @@ namespace BookStore.Business.Services.Concrete
             return newBook.Id;
         }
 
-        public void DeleteBook(BooksListResponse request)
+        public void DeleteBook(BookListRequest request)
         {
             var temp = mapper.Map<DeleteBookRequest>(request);
             var book = mapper.Map<Book>(temp);
@@ -41,63 +41,63 @@ namespace BookStore.Business.Services.Concrete
             return bookRepository.Update(book).Id;
         }
 
-        public IList<BooksListResponse> GetAllBooks()
+        public IList<BookListRequest> GetAllBooks()
         {
             var bookList = bookRepository.GetAll();
-            return mapper.Map<List<BooksListResponse>>(bookList);
+            return mapper.Map<List<BookListRequest>>(bookList);
         }
 
-        public BooksListResponse GetBooksById(int id)
+        public BookListRequest GetBooksById(int id)
         {
             Book book = bookRepository.GetById(id);
-            return mapper.Map<BooksListResponse>(book);
+            return mapper.Map<BookListRequest>(book);
         }
 
-        public IList<BookFlagsResponse> GetFlagById(int id)
+        public IList<BookFlagsRequest> GetFlagById(int id)
         {
             var bookList = bookRepository.GetById(id);
-            var dtoList = mapper.Map<List<BookFlagsResponse>>(bookList);
+            var dtoList = mapper.Map<List<BookFlagsRequest>>(bookList);
             return dtoList;
         }
 
-        public IList<BookFlagsResponse> GetAllBookFlags()
+        public IList<BookFlagsRequest> GetAllBookFlags()
         {
             var bookList = bookRepository.GetAllBookFlags();
-            return mapper.Map<List<BookFlagsResponse>>(bookList);
+            return mapper.Map<List<BookFlagsRequest>>(bookList);
         }
 
-        public IList<BookFlagsResponse> GetBooksByAuthor(int authorId)
+        public IList<BookFlagsRequest> GetBooksByAuthor(int authorId)
         {
             var books = bookRepository.GetByAuthor(authorId);
-            return mapper.Map<List<BookFlagsResponse>>(books);
+            return mapper.Map<List<BookFlagsRequest>>(books);
         }
 
-        public IList<BookFlagsResponse> GetBooksByAuthorName(GetBooksByAuthorName author)
+        public IList<BookFlagsRequest> GetBooksByAuthorName(GetBooksByAuthorName author)
         {
             var books = bookRepository.GetBooksByAuthorName(author.NameSurname);
-            return mapper.Map<List<BookFlagsResponse>>(books);
+            return mapper.Map<List<BookFlagsRequest>>(books);
         }
 
-        public IList<BookFlagsResponse> GetBooksByGenre(int genreId)
+        public IList<BookFlagsRequest> GetBooksByGenre(int genreId)
         {
             var books = bookRepository.GetByGenre(genreId);
-            return mapper.Map<List<BookFlagsResponse>>(books);
+            return mapper.Map<List<BookFlagsRequest>>(books);
         }
-        public IList<BookFlagsResponse> GetBooksByGenreName(EditGenreRequest genre)
+        public IList<BookFlagsRequest> GetBooksByGenreName(EditGenreRequest genre)
         {
             var books = bookRepository.GetBooksByGenreName(genre.Name);
-            return mapper.Map<List<BookFlagsResponse>>(books);
+            return mapper.Map<List<BookFlagsRequest>>(books);
         }
 
-        public IList<BookFlagsResponse> GetBooksByPublisher(int publisherId)
+        public IList<BookFlagsRequest> GetBooksByPublisher(int publisherId)
         {
             var books = bookRepository.GetByPublisher(publisherId);
-            return mapper.Map<List<BookFlagsResponse>>(books);
+            return mapper.Map<List<BookFlagsRequest>>(books);
         }
-        public IList<BookFlagsResponse> GetBooksByPublisherName(GetBooksByPublisherName publisher)
+        public IList<BookFlagsRequest> GetBooksByPublisherName(GetBooksByPublisherName publisher)
         {
             var books = bookRepository.GetBooksByPublisherName(publisher.Name);
-            return mapper.Map<List<BookFlagsResponse>>(books);
+            return mapper.Map<List<BookFlagsRequest>>(books);
         }
     }
 }

@@ -26,22 +26,22 @@ namespace BookStore.Business.Services.Concrete
 
         }
 
-        public void DeleteGenre(GenreListResponse genreListResponse)
+        public void DeleteGenre(GenreListRequest genreListResponse)
         {
             var genre = mapper.Map<Genre>(genreListResponse);
             genreRepository.Delete(genre);
         }
 
-        public IList<GenreListResponse> GetAllGenres()
+        public IList<GenreListRequest> GetAllGenres()
         {
             var dtoList = genreRepository.GetAll().ToList();
-            return mapper.Map<List<GenreListResponse>>(dtoList);
+            return mapper.Map<List<GenreListRequest>>(dtoList);
         }
 
-        public GenreListResponse GetGenresById(int id)
+        public GenreListRequest GetGenresById(int id)
         {
             Genre genre = genreRepository.GetById(id);
-            return mapper.Map<GenreListResponse>(genre);
+            return mapper.Map<GenreListRequest>(genre);
         }
 
         public int UpdateGenre(int id ,EditGenreRequest request)
