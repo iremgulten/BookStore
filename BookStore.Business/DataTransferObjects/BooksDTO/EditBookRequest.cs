@@ -6,6 +6,7 @@ namespace BookStore.Business.DataTransferObjects.BooksDTO
 {
     public class EditBookRequest
     {
+        public int Id { get; set; }
         public string Isbn { get; set; }
         public string Title { get; set; }
         public int AuthorId { get; set; }

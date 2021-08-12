@@ -2,7 +2,7 @@
 
 namespace BookStore.DataAccess.Repositories.Abstract
 {
-    public interface IRepository<Entity>
+    public interface IGenericRepository<Entity>
     {
         IList<Entity> GetAll();
         Entity GetById(int id);

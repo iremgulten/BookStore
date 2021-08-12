@@ -10,9 +10,9 @@ namespace BookStore.Business.Services.Abstract
     public interface IAuthorService
     {
         IList<AuthorsListRequest> GetAllAuthors();
-        int AddAuthor(AddNewAuthorRequest request);
+        void AddAuthor(AddNewAuthorRequest request);
         AuthorsListRequest GetAuthorById(int id);
-        int UpdateAuthor(int id, EditAuthorRequest request);
+        void UpdateAuthor(EditAuthorRequest request);
         void DeleteAuthor(AuthorsListRequest request);
     }
 }

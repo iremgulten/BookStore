@@ -23,7 +23,7 @@ namespace BookStore.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("GetGenreById/{id:int}")]
+        [HttpGet("GetGenreById/{id:int}")]
         public IActionResult GetById(int id)
         {
             var genreResponseList = service.GetGenresById(id);
@@ -38,29 +38,21 @@ namespace BookStore.API.Controllers
         [Authorize(Roles = UserRoles.Admin)]
         public IActionResult AddGenre(AddNewGenreRequest request)
         {
-            if (ModelState.IsValid)
-            {
-                service.AddGenre(request);
-                return Ok();
-            }
-            return BadRequest();
+            service.AddGenre(request);
+            return Ok();
         }
-        [HttpPut("UpdateGenre/{id}")]
-        [Authorize(Roles = UserRoles.Admin)]
-        public IActionResult UpdateGenre(int id,EditGenreRequest request)
-        {
-            var isExisting = service.GetGenresById(id);
-            if(isExisting == null)
-            {
-                return NotFound();
-            }
-            if (ModelState.IsValid)
-            {
-                service.UpdateGenre(id,request);
-                return Ok();
 
-            }
-            return BadRequest();
+        [HttpPut("UpdateGenre")]
+        [Authorize(Roles = UserRoles.Admin)]
+        public IActionResult UpdateGenre(EditGenreRequest request)
+        {
+            var isExisting = service.GetGenresById(request.Id);
+            if(isExisting == null)
+                return NotFound();
+
+            service.UpdateGenre(request);
+            return Ok();
+
         }
         [HttpDelete("DeleteGenre/{id}")]
         [Authorize(Roles = UserRoles.Admin)]

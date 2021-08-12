@@ -22,7 +22,7 @@ namespace BookStore.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("GetPublisherById/{id:int}")]
+        [HttpGet("GetPublisherById/{id:int}")]
         public IActionResult GetById(int id)
         {
             var publisherResponseList = service.GetPublisherById(id);
@@ -37,28 +37,22 @@ namespace BookStore.API.Controllers
         [Authorize(Roles = UserRoles.Admin)]
         public IActionResult AddPublisher(AddNewPublisherRequest request)
         {
-            if (ModelState.IsValid)
-            {
-                service.AddPublisher(request);
-                return Ok();
-            }
-            return BadRequest();
-        }
-        [HttpPut("UpdatePublisher/{id}")]
-        [Authorize(Roles = UserRoles.Admin)]
-        public IActionResult UpdatePublisher(int id, EditPublisherRequest request)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest();
-            var isExisting = service.GetPublisherById(id);
-            if (isExisting == null)
-            {
-                return NotFound();
-            }
-            service.UpdatePublisher(id, request);
+            service.AddPublisher(request);
             return Ok();
-            
         }
+
+        [HttpPut("UpdatePublisher")]
+        [Authorize(Roles = UserRoles.Admin)]
+        public IActionResult UpdatePublisher(EditPublisherRequest request)
+        {
+            var isExisting = service.GetPublisherById(request.Id);
+            if (isExisting == null)
+                return NotFound();
+
+            service.UpdatePublisher(request);
+            return Ok();   
+        }
+
         [HttpDelete("DeletePublisher/{id}")]
         [Authorize(Roles = UserRoles.Admin)]
         public IActionResult DeletePublisher(int id)

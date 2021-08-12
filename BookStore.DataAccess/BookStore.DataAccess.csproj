@@ -24,8 +24,4 @@
     <ProjectReference Include="..\BookStore.Models\BookStore.Entities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UserIdentityEntities\" />
-  </ItemGroup>
-
 </Project>

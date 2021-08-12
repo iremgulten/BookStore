@@ -7,6 +7,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.DataAccess.Repositories.Concrete
 {
+    [Flags]public enum IncludeTypes
+    {
+        Author,
+        Publisher,
+        Genre
+    }
     public class EFBooksRepository : IBooksRepository
     {
         private BookStoreContext dbContext;
@@ -31,84 +37,68 @@ namespace BookStore.DataAccess.Repositories.Concrete
             dbContext.SaveChanges();
             return entity;
         }
-        public IList<Book> GetAll()
+        public IList<Book> GetAll(IncludeTypes type)
         {
-            return dbContext.Books
-                .Include(opt => opt.Author)
-                .Include(opt => opt.Publisher)
-                .Include(opt => opt.Genre).ToList();
+            IList<Book> allBooks = IncludeModels(type).ToList();
+            return allBooks;
         }
-        public Book GetById(int id)
+        public Book GetById(int id,IncludeTypes type)
         {
-            return dbContext.Books
-                .Include(opt => opt.Author)
-                .Include(opt => opt.Publisher)
-                .Include(opt => opt.Genre)
-                .AsNoTracking()
-                .FirstOrDefault(opt => opt.Id == id);
+            IList<Book> list = IncludeModels(type).ToList();
+            return list.FirstOrDefault(opt => opt.Id == id);
         }
-        public IList<Book> GetAllBookFlags()
+        public IList<Book> GetAllBookFlags(IncludeTypes type)
         {
-            return dbContext.Books
-                .Include(opt => opt.Author)
-                .Include(opt => opt.Publisher)
-                .Include(opt => opt.Genre).ToList();
+            IList<Book> bookFlags = IncludeModels(type).ToList();
+            return bookFlags;
         }
         
-        public IList<Book> GetByAuthor(int id)
+        public IList<Book> GetByAuthor(int id, IncludeTypes type)
         {
-            return dbContext.Books
-                .Include(opt => opt.Author)
-                .Include(opt => opt.Publisher)
-                .Include(opt => opt.Genre)
-                .Where(opt => opt.AuthorId == id)
-                .ToList();
+            IList<Book> books = IncludeModels(type).ToList();
+            return books.Where(opt => opt.AuthorId == id).ToList();
         }
-        public IList<Book> GetBooksByAuthorName(string author)
+        public IList<Book> GetBooksByAuthorName(string author, IncludeTypes type)
         {
-            return dbContext.Books
-                .Include(opt => opt.Author)
-                .Include(opt => opt.Publisher)
-                .Include(opt => opt.Genre)
-                .Where(opt => opt.Author.NameSurname.ToLower() == author.ToLower())
-                .ToList();
+            IList<Book> books = IncludeModels(type).ToList();
+            return books.Where(opt => opt.Author.NameSurname.ToLower().Contains(author.ToLower())).ToList();
         }
 
-        public IList<Book>  GetByPublisher(int id)
+        public IList<Book>  GetByPublisher(int id, IncludeTypes type)
         {
-            return dbContext.Books
-                .Include(opt => opt.Author)
-                .Include(opt => opt.Publisher)
-                .Include(opt => opt.Genre)
-                .Where(opt => opt.PublisherId == id)
-                .ToList();
+            IList<Book> books = IncludeModels(type).ToList();
+            return books.Where(opt => opt.PublisherId == id).ToList();
         }
-        public IList<Book> GetBooksByPublisherName(string publisher)
+        public IList<Book> GetBooksByPublisherName(string publisher, IncludeTypes type)
         {
-            return dbContext.Books
-                .Include(opt => opt.Author)
-                .Include(opt => opt.Publisher)
-                .Include(opt => opt.Genre)
-                .Where(opt => opt.Publisher.Name.ToLower() == publisher.ToLower())
-                .ToList();
+            IList<Book> books = IncludeModels(type).ToList();
+            return books.Where(opt => opt.Publisher.Name.ToLower().Contains(publisher.ToLower())).ToList();
         }
-        public IList<Book> GetByGenre(int id)
+        public IList<Book> GetByGenre(int id, IncludeTypes type)
         {
-            return dbContext.Books
-                .Include(opt => opt.Author)
-                .Include(opt => opt.Publisher)
-                .Include(opt => opt.Genre)
-                .Where(opt => opt.GenreId == id)
-                .ToList();
+            IList<Book> books = IncludeModels(type).ToList();
+            return books.Where(opt => opt.GenreId == id).ToList();
         }
-        public IList<Book> GetBooksByGenreName(string genre)
+        public IList<Book> GetBooksByGenreName(string genre, IncludeTypes type)
         {
-            return dbContext.Books
-                .Include(opt => opt.Author)
-                .Include(opt => opt.Publisher)
-                .Include(opt => opt.Genre)
-                .Where(opt => opt.Genre.Name.ToLower() == genre.ToLower())
-                .ToList();
+            IList<Book> books = IncludeModels(type).ToList();
+            return books.Where(opt => opt.Genre.Name.ToLower().Contains(genre.ToLower())).ToList();
+        }
+
+        private List<Book> IncludeModels(IncludeTypes paramEnumType)
+        {
+            var bookSet = dbContext.Books;
+
+            if (paramEnumType.HasFlag(IncludeTypes.Author))
+                bookSet.Include(opt => opt.Author).Load();
+
+            if (paramEnumType.HasFlag(IncludeTypes.Publisher))
+                bookSet.Include(opt => opt.Publisher).Load();
+
+            if (paramEnumType.HasFlag(IncludeTypes.Genre))
+                bookSet.Include(opt => opt.Genre).Load();
+
+            return bookSet.ToList();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace BookStore.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("GetAuthorById/{id:int}")]
+        [HttpGet("GetAuthorById/{id:int}")]
         public IActionResult GetById(int id)
         {
             var author = service.GetAuthorById(id);
@@ -39,7 +39,6 @@ namespace BookStore.API.Controllers
         {
             service.AddAuthor(request);
             return Ok();
-
         }
 
         [HttpDelete("DeleteAuthor/{id}")]
@@ -55,23 +54,16 @@ namespace BookStore.API.Controllers
             return Ok();
         }
 
-        [HttpPut("UpdateAuthor/{id}")]
+        [HttpPut("UpdateAuthor")]
         [Authorize(Roles = UserRoles.Admin)]
-        public IActionResult UpdateGenre(int id, EditAuthorRequest request)
+        public IActionResult UpdateGenre(EditAuthorRequest request)
         {
-            var isExisting = service.GetAuthorById(id);
+            var isExisting = service.GetAuthorById(request.Id);
             if (isExisting == null)
-            {
                 return NotFound();
-            }
-            if (ModelState.IsValid)
-            {
-                service.UpdateAuthor(id, request);
-                return Ok();
 
-            }
-            return BadRequest();
+            service.UpdateAuthor(request);
+            return Ok();
         }
-
     }
 }

@@ -10,9 +10,9 @@ namespace BookStore.Business.Services.Abstract
     public interface IPublisherService
     {
         IList<PublisherListRequest> GetAllPublishers();
-        int AddPublisher(AddNewPublisherRequest request);
+        void AddPublisher(AddNewPublisherRequest request);
         PublisherListRequest GetPublisherById(int id);
-        int UpdatePublisher(int id, EditPublisherRequest request);
+        void UpdatePublisher(EditPublisherRequest request);
         void DeletePublisher(PublisherListRequest request);
     }
 }

@@ -12,6 +12,7 @@ namespace BookStore.Business.FluentValidation
     {
         public EditAuthorRequestValidator()
         {
+            RuleFor(x => x.Id).NotEmpty().WithMessage("Author Id field cannot be empty");
             RuleFor(x => x.NameSurname).NotEmpty().WithMessage("Author Name field cannot be empty");
         }
     }

@@ -8,6 +8,7 @@ namespace BookStore.Business.DataTransferObjects.AuthorsDTO
 {
     public class EditAuthorRequest
     {
+        public int Id { get; set; }
         public string NameSurname { get; set; }
         public string Biography { get; set; }
 

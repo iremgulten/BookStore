@@ -33,7 +33,7 @@ namespace BookStore.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("GetBookById/{id:int}")]
+        [HttpGet("GetBookById/{id:int}")]
         public IActionResult GetById(int id)
         {
             var book = service.GetBooksById(id);
@@ -43,7 +43,17 @@ namespace BookStore.API.Controllers
             }
             return NotFound();
         }
-        [HttpPost("GetByAuthor/{id:int}")]
+        [HttpGet("GetBookFlagById/{id:int}")]
+        public IActionResult GetBookFlagById(int id)
+        {
+            var bookFlag = service.GetBookFlagById(id);
+            if (bookFlag != null)
+            {
+                return Ok(bookFlag);
+            }
+            return NotFound();
+        }
+        [HttpGet("GetByAuthorId/{id:int}")]
         public IActionResult GetByAuthorId(int id)
         {
             var books = service.GetBooksByAuthor(id);
@@ -58,19 +68,17 @@ namespace BookStore.API.Controllers
         {
             var books = service.GetBooksByAuthorName(author);
             if (books != null)
-            {
                 return Ok(books);
-            }
+
             return NotFound();
         }
-        [HttpPost("GetByPublisher/{id:int}")]
+        [HttpGet("GetByPublisherId/{id:int}")]
         public IActionResult GetByPublisherId(int id)
         {
             var books = service.GetBooksByPublisher(id);
             if (books != null)
-            {
                 return Ok(books);
-            }
+
             return NotFound();
         }
         [HttpPost("GetByPublisherName")]
@@ -78,29 +86,26 @@ namespace BookStore.API.Controllers
         {
             var books = service.GetBooksByPublisherName(publisher);
             if (books != null)
-            {
                 return Ok(books);
-            }
+
             return NotFound();
         }
-        [HttpPost("GetByGenre/{id:int}")]
+        [HttpGet("GetByGenreId/{id:int}")]
         public IActionResult GetByGenreId(int id)
         {
             var books = service.GetBooksByGenre(id);
             if (books != null)
-            {
                 return Ok(books);
-            }
+
             return NotFound();
         }
         [HttpPost("GetByGenreName")]
-        public IActionResult GetBooksByGenreName(EditGenreRequest genre)
+        public IActionResult GetBooksByGenreName(GenreNameRequest genre)
         {
             var books = service.GetBooksByGenreName(genre);
             if (books != null)
-            {
                 return Ok(books);
-            }
+
             return NotFound();
         }
 
@@ -108,20 +113,19 @@ namespace BookStore.API.Controllers
         [Authorize(Roles = UserRoles.Admin)]
         public IActionResult AddBook(AddNewBookRequest request)
         {
-            var id = service.AddBook(request);
+            service.AddBook(request);
             return Ok();
-
         }
-        [HttpPut("UpdateBook/{id:int}")]
+
+        [HttpPut("UpdateBook")]
         [Authorize(Roles = UserRoles.Admin)]
-        public IActionResult UpdateBook(int id, EditBookRequest request)
+        public IActionResult UpdateBook(EditBookRequest request)
         {
-            var isExisting = service.GetBooksById(id);
+            var isExisting = service.GetBooksById(request.Id);
             if (isExisting == null)
-            {
                 return NotFound();
-            }
-            service.UpdateBook(id,request);
+
+            service.UpdateBook(request);
             return Ok();  
         }
         [HttpDelete("DeleteBook/{id}")]
@@ -130,9 +134,8 @@ namespace BookStore.API.Controllers
         {
             var isExisting = service.GetBooksById(id);
             if (isExisting == null)
-            {
                 return NotFound();
-            }
+
             service.DeleteBook(isExisting);
             return Ok();
         }

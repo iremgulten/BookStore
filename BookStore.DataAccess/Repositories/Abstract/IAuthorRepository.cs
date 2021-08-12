@@ -1,8 +1,9 @@
-﻿using BookStore.Entities.BookStoreEntities;
+﻿using System.Collections.Generic;
+using BookStore.Entities.BookStoreEntities;
 
 namespace BookStore.DataAccess.Repositories.Abstract
 {
-    public interface IAuthorRepository : IRepository<Author>
+    public interface IAuthorRepository : IGenericRepository<Author>
     {
     }
 }

@@ -74,7 +74,7 @@ namespace BookStore.API.Controllers
         {
             var userExists = await userManager.FindByNameAsync(model.Username);
             if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+                return StatusCode(StatusCodes.Status403Forbidden, new Response { Status = "Error", Message = "User already exists!" });
 
             ApplicationUser user = new ApplicationUser()
             {
@@ -83,7 +83,13 @@ namespace BookStore.API.Controllers
             };
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+                return StatusCode(StatusCodes.Status404NotFound, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+
+            if(model.Role.ToLower() == UserRoles.Admin.ToLower())
+                await userManager.AddToRoleAsync(user, UserRoles.Admin);
+            else
+                await userManager.AddToRoleAsync(user, UserRoles.User);
+
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
@@ -94,7 +100,7 @@ namespace BookStore.API.Controllers
         {
             var userExists = await userManager.FindByNameAsync(model.Username);
             if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+                return StatusCode(StatusCodes.Status403Forbidden, new Response { Status = "Error", Message = "User already exists!" });
 
             ApplicationUser user = new ApplicationUser()
             {
@@ -103,7 +109,7 @@ namespace BookStore.API.Controllers
             };
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+                return StatusCode(StatusCodes.Status404NotFound, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
             if (await roleManager.RoleExistsAsync(UserRoles.Admin))
             {
@@ -112,5 +118,9 @@ namespace BookStore.API.Controllers
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
+        //public async Task<int> PreRegister(RegisterModel model)
+        //{
+        //    return 1;
+        //}
     }
 }

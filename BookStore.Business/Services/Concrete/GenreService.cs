@@ -18,24 +18,22 @@ namespace BookStore.Business.Services.Concrete
             this.mapper = mapper;
         }
         
-        public int AddGenre(AddNewGenreRequest request)
+        public void AddGenre(AddNewGenreRequest request)
         {
             var newGenre = mapper.Map<Genre>(request);
             genreRepository.Add(newGenre);
-            return newGenre.Id;
-
         }
 
-        public void DeleteGenre(GenreListRequest genreListResponse)
+        public void DeleteGenre(GenreListRequest genreListrequest)
         {
-            var genre = mapper.Map<Genre>(genreListResponse);
+            var genre = mapper.Map<Genre>(genreListrequest);
             genreRepository.Delete(genre);
         }
 
         public IList<GenreListRequest> GetAllGenres()
         {
             var dtoList = genreRepository.GetAll().ToList();
-            return mapper.Map<List<GenreListRequest>>(dtoList);
+            return mapper.Map<IList<GenreListRequest>>(dtoList);
         }
 
         public GenreListRequest GetGenresById(int id)
@@ -44,12 +42,10 @@ namespace BookStore.Business.Services.Concrete
             return mapper.Map<GenreListRequest>(genre);
         }
 
-        public int UpdateGenre(int id ,EditGenreRequest request)
+        public void UpdateGenre(EditGenreRequest request)
         {
             var genre = mapper.Map<Genre>(request);
-            genre.Id = id;
             genreRepository.Update(genre);
-            return id;
         }
     }
 }

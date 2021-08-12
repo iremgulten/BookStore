@@ -17,11 +17,10 @@ namespace BookStore.Business.Services.Concrete
             this.authorRepository = authorRepository;
             this.mapper = mapper;
         }
-        public int AddAuthor(AddNewAuthorRequest request)
+        public void AddAuthor(AddNewAuthorRequest request)
         {
             var newAuthor = mapper.Map<Author>(request);
             authorRepository.Add(newAuthor);
-            return newAuthor.Id;
         }
 
         public void DeleteAuthor(AuthorsListRequest request)
@@ -33,21 +32,19 @@ namespace BookStore.Business.Services.Concrete
         public IList<AuthorsListRequest> GetAllAuthors()
         {
             var dtoList = authorRepository.GetAll().ToList();
-            return mapper.Map<List<AuthorsListRequest>>(dtoList);
+            return mapper.Map<IList<AuthorsListRequest>>(dtoList);
         }
 
         public AuthorsListRequest GetAuthorById(int id)
         {
-            Author genre = authorRepository.GetById(id);
-            return mapper.Map<AuthorsListRequest>(genre);
+            var author = authorRepository.GetById(id);
+            return mapper.Map<AuthorsListRequest>(author);
         }
 
-        public int UpdateAuthor(int id, EditAuthorRequest request)
+        public void UpdateAuthor(EditAuthorRequest request)
         {
             var author = mapper.Map<Author>(request);
-            author.Id = id;
             authorRepository.Update(author);
-            return id;
         }
     }
 }

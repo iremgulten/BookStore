@@ -16,15 +16,12 @@ namespace BookStore.Business.Mapper
             CreateMap<AuthorNameRequest, GetBooksByAuthorName>().ReverseMap();
             CreateMap<Author, AddNewAuthorRequest>().ReverseMap();
             CreateMap<Author, AuthorsListRequest>().ReverseMap();
-            CreateMap<Author, DeleteAuthorRequest>().ReverseMap();
             CreateMap<Author, EditAuthorRequest>().ReverseMap();
 
             CreateMap<Book, AddNewBookRequest>().ReverseMap();
             CreateMap<Book, BookListRequest>().ReverseMap();
             CreateMap<Book, BookFlagsRequest>().ReverseMap();
             CreateMap<Book, EditBookRequest>().ReverseMap();
-            CreateMap<Book, DeleteBookRequest>().ReverseMap();
-            CreateMap<DeleteBookRequest, BookListRequest>().ReverseMap();
 
             CreateMap<Genre, GenreListRequest>().ReverseMap();
             CreateMap<Genre, AddNewGenreRequest>().ReverseMap();

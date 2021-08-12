@@ -11,6 +11,7 @@ namespace BookStore.DataAccess
     {
         public BookStoreContext()
         {
+            
         }
 
         public BookStoreContext(DbContextOptions<BookStoreContext> options)

@@ -2,8 +2,7 @@
 
 namespace BookStore.DataAccess.Repositories.Abstract
 {
-    public interface IPublisherRepository : IRepository<Publisher>
+    public interface IPublisherRepository : IGenericRepository<Publisher>
     {
-
     }
 }
