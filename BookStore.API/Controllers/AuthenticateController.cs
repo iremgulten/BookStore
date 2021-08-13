@@ -5,7 +5,9 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using BookStore.Business.DataTransferObjects.UserIdentityDTO;
+using BookStore.Entities;
 using BookStore.Entities.UserIdentityEntities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -72,36 +74,44 @@ namespace BookStore.API.Controllers
         [Route("register")]
         public async Task<IActionResult> Register(RegisterModel model)
         {
-            var userExists = await userManager.FindByNameAsync(model.Username);
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status403Forbidden, new Response { Status = "Error", Message = "User already exists!" });
+            if (UsernameControlAsync(model).Result == null)
+                return StatusCode(StatusCodes.Status403Forbidden, new Response { Status = "Error", Message = Messages.UserExist });
 
-            ApplicationUser user = new ApplicationUser()
+            var user = AddUserAsync(model).Result;
+            if (user != null)
             {
-                Email = model.Email,
-                UserName = model.Username
-            };
-            var result = await userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status404NotFound, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
-
-            if(model.Role.ToLower() == UserRoles.Admin.ToLower())
-                await userManager.AddToRoleAsync(user, UserRoles.Admin);
-            else
                 await userManager.AddToRoleAsync(user, UserRoles.User);
-
-
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+                return Ok(new Response { Status = "Success", Message = Messages.CreationSuccess });
+            }
+            return StatusCode(StatusCodes.Status404NotFound, new Response { Status = "Error", Message = Messages.CreationFailed });
         }
 
         [HttpPost]
         [Route("register-admin")]
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> RegisterAdmin(RegisterModel model)
+        {
+            if (UsernameControlAsync(model).Result == null)
+                return StatusCode(StatusCodes.Status403Forbidden, new Response { Status = "Error", Message = Messages.UserExist});
+            
+            var admin = AddUserAsync(model).Result;
+            if (admin != null)
+            {
+                await userManager.AddToRoleAsync(admin, UserRoles.Admin);
+                return Ok(new Response { Status = "Success", Message = Messages.CreationSuccess });
+            }
+            return StatusCode(StatusCodes.Status404NotFound, new Response { Status = "Error", Message = Messages.CreationFailed });
+     
+        }
+        private async Task<dynamic> UsernameControlAsync(RegisterModel model)
         {
             var userExists = await userManager.FindByNameAsync(model.Username);
             if (userExists != null)
-                return StatusCode(StatusCodes.Status403Forbidden, new Response { Status = "Error", Message = "User already exists!" });
-
+                return null;
+            return true;
+        }
+        private async Task<dynamic> AddUserAsync(RegisterModel model)
+        {
             ApplicationUser user = new ApplicationUser()
             {
                 Email = model.Email,
@@ -109,18 +119,10 @@ namespace BookStore.API.Controllers
             };
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status404NotFound, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+                return null;
 
-            if (await roleManager.RoleExistsAsync(UserRoles.Admin))
-            {
-                await userManager.AddToRoleAsync(user, UserRoles.Admin);
-            }
-
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+            return user;
         }
-        //public async Task<int> PreRegister(RegisterModel model)
-        //{
-        //    return 1;
-        //}
+
     }
 }

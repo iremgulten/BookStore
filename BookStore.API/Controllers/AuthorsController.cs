@@ -1,4 +1,5 @@
-﻿using BookStore.Business.DataTransferObjects.AuthorsDTO;
+﻿using System.Threading.Tasks;
+using BookStore.Business.DataTransferObjects.AuthorsDTO;
 using BookStore.Business.DataTransferObjects.UserIdentityDTO;
 using BookStore.Business.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
@@ -35,7 +36,7 @@ namespace BookStore.API.Controllers
         }
         [HttpPost("AddNewAuthor")]
         [Authorize(Roles = UserRoles.Admin)]
-        public IActionResult AddAuthor(AddNewAuthorRequest request)
+        public async Task<IActionResult> AddAuthor(AddNewAuthorRequest request)
         {
             service.AddAuthor(request);
             return Ok();
