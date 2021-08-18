@@ -36,7 +36,7 @@ namespace BookStore.API.Controllers
         }
         [HttpPost("AddNewAuthor")]
         [Authorize(Roles = UserRoles.Admin)]
-        public async Task<IActionResult> AddAuthor(AddNewAuthorRequest request)
+        public IActionResult AddAuthor(AddNewAuthorRequest request)
         {
             service.AddAuthor(request);
             return Ok();
