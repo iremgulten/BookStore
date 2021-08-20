@@ -3,6 +3,7 @@ using BookStore.Business.Services.Abstract;
 using BookStore.Business.DataTransferObjects.GenresDTO;
 using Microsoft.AspNetCore.Authorization;
 using BookStore.Business.DataTransferObjects.UserIdentityDTO;
+using System.Threading.Tasks;
 
 namespace BookStore.API.Controllers
 {
@@ -17,16 +18,16 @@ namespace BookStore.API.Controllers
         }
 
         [HttpGet("GetAllGenres")]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var result = service.GetAllGenres();
+            var result = await service.GetAllGenres();
             return Ok(result);
         }
 
         [HttpGet("GetGenreById/{id:int}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var genreResponseList = service.GetGenresById(id);
+            var genreResponseList = await service.GetGenresById(id);
             if (genreResponseList != null)
             {
                 return Ok(genreResponseList);
@@ -36,34 +37,34 @@ namespace BookStore.API.Controllers
 
         [HttpPost("AddNewGenre")]
         [Authorize(Roles = UserRoles.Admin)]
-        public IActionResult AddGenre(AddNewGenreRequest request)
+        public async Task<IActionResult> AddGenre(AddNewGenreRequest request)
         {
-            service.AddGenre(request);
+            await service.AddGenre(request);
             return Ok();
         }
 
         [HttpPut("UpdateGenre")]
         [Authorize(Roles = UserRoles.Admin)]
-        public IActionResult UpdateGenre(EditGenreRequest request)
+        public async Task<IActionResult> UpdateGenre(EditGenreRequest request)
         {
-            var isExisting = service.GetGenresById(request.Id);
+            var isExisting = await service.GetGenresById(request.Id);
             if(isExisting == null)
                 return NotFound();
 
-            service.UpdateGenre(request);
+            await service .UpdateGenre(request);
             return Ok();
 
         }
         [HttpDelete("DeleteGenre/{id}")]
         [Authorize(Roles = UserRoles.Admin)]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var isExisting = service.GetGenresById(id);
+            var isExisting = await service.GetGenresById(id);
             if (isExisting == null)
             {
                 return NotFound();
             }
-            service.DeleteGenre(isExisting);
+            await service .DeleteGenre(isExisting);
             return Ok();
         }
     }

@@ -18,16 +18,16 @@ namespace BookStore.API.Controllers
         }
 
         [HttpGet("GetAllAuthors")]
-        public IActionResult GetAllAuthors()
+        public async Task<IActionResult> GetAllAuthors()
         {
-            var result = service.GetAllAuthors();
+            var result = await service.GetAllAuthors();
             return Ok(result);
         }
 
         [HttpGet("GetAuthorById/{id:int}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var author = service.GetAuthorById(id);
+            var author = await service.GetAuthorById(id);
             if (author != null)
             {
                 return Ok(author);
@@ -36,34 +36,34 @@ namespace BookStore.API.Controllers
         }
         [HttpPost("AddNewAuthor")]
         [Authorize(Roles = UserRoles.Admin)]
-        public IActionResult AddAuthor(AddNewAuthorRequest request)
+        public async Task<IActionResult> AddAuthor(AddNewAuthorRequest request)
         {
-            service.AddAuthor(request);
+            await service .AddAuthor(request);
             return Ok();
         }
 
         [HttpDelete("DeleteAuthor/{id}")]
         [Authorize(Roles = UserRoles.Admin)]
-        public IActionResult DeleteAuthor(int id)
+        public async Task<IActionResult> DeleteAuthor(int id)
         {
-            var isExisting = service.GetAuthorById(id);
+            var isExisting = await service .GetAuthorById(id);
             if (isExisting == null)
             {
                 return NotFound();
             }
-            service.DeleteAuthor(isExisting);
+            await service.DeleteAuthor(isExisting);
             return Ok();
         }
 
         [HttpPut("UpdateAuthor")]
         [Authorize(Roles = UserRoles.Admin)]
-        public IActionResult UpdateGenre(EditAuthorRequest request)
+        public async Task<IActionResult> UpdateGenre(EditAuthorRequest request)
         {
-            var isExisting = service.GetAuthorById(request.Id);
+            var isExisting = await service.GetAuthorById(request.Id);
             if (isExisting == null)
                 return NotFound();
 
-            service.UpdateAuthor(request);
+            await service.UpdateAuthor(request);
             return Ok();
         }
     }

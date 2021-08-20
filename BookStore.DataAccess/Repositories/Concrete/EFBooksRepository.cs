@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using BookStore.DataAccess.Repositories.Abstract;
 using BookStore.Entities.BookStoreEntities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.DataAccess.Repositories.Concrete
 {
-    [Flags]public enum IncludeTypes
+    [Flags]
+    public enum IncludeTypes
     {
         Author,
         Publisher,
-        Genre
+        Genre,
+        Book,
+        AspNetUser
     }
+
     public class EFBooksRepository : IBooksRepository
     {
         private BookStoreContext dbContext;
@@ -26,15 +31,16 @@ namespace BookStore.DataAccess.Repositories.Concrete
             dbContext.SaveChanges();
             return entity;
         }
-        public void Delete(Book entity)
+        public Book Delete(Book entity)
         {
             dbContext.Books.Remove(entity);
-            dbContext.SaveChanges();
+            dbContext.SaveChangesAsync();
+            return entity;
         }
         public Book Update(Book entity)
         {
             dbContext.Books.Update(entity);
-            dbContext.SaveChanges();
+            dbContext.SaveChangesAsync();
             return entity;
         }
         public IList<Book> GetAll(IncludeTypes type)
@@ -100,5 +106,6 @@ namespace BookStore.DataAccess.Repositories.Concrete
 
             return bookSet.ToList();
         }
+
     }
 }

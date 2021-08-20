@@ -54,11 +54,15 @@ namespace BookStore.API
             services.AddScoped<IBooksService, BookService>();
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IPublisherService, PublisherService>();
+            services.AddScoped<IUserFavBookService, UserFavBookService>();
+
 
             services.AddScoped<IBooksRepository, EFBooksRepository>();
             services.AddScoped<IGenreRepository, EFGenreRepository>();
             services.AddScoped<IAuthorRepository, EFAuthorRepository>();
             services.AddScoped<IPublisherRepository, EFPublisherRepository>();
+            services.AddScoped<IUserFavBookRepository, EFUserFavBookRepository>();
+
 
             services.AddSwaggerGen(option =>
             {
@@ -93,7 +97,6 @@ namespace BookStore.API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseMiddleware<RequestResponseMiddleware>();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -108,6 +111,8 @@ namespace BookStore.API
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseExceptionHandlerMiddleware();
 
             app.UseEndpoints(endpoints =>
             {

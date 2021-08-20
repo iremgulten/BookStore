@@ -13,11 +13,20 @@ namespace BookStoreXUnitTest
     {
         private Mock<IAuthorService> mockService;
         private AuthorsController controller;
-        public AuthorsListRequest request = new AuthorsListRequest { Id = 1, NameSurname = "Stephen King", Biography = "******" };
-        public List<AuthorsListRequest> list = new List<AuthorsListRequest>();
+        public List<AuthorsListRequest> list;
+        public AuthorsListRequest request;
+
+
         public AuthorsControllerTest()
         {
-            list.Add(request);
+            request = new AuthorsListRequest { Id = 1, NameSurname = "Stephen King", Biography = "******" };
+            list = new List<AuthorsListRequest>();
+
+            list.Add(new AuthorsListRequest { Id = 1, NameSurname = "Stephen King", Biography = "******" });
+            list.Add(new AuthorsListRequest { Id = 2, NameSurname = "Dostoyevski", Biography = "******" });
+            list.Add(new AuthorsListRequest { Id = 3, NameSurname = "Jack London", Biography = "******" });
+            list.Add(new AuthorsListRequest { Id = 4, NameSurname = "Jane Austen", Biography = "******" });
+            list.Add(new AuthorsListRequest { Id = 5, NameSurname = "Jose Saramago", Biography = "******" });
         }
         [Fact]
         public void GetById_ShouldReturnOkResult()
@@ -43,7 +52,7 @@ namespace BookStoreXUnitTest
             Assert.IsType<Microsoft.AspNetCore.Mvc.NotFoundResult>(result);
         }
         [Fact]
-        public void GetAllAuthors_ShouldAuthorList()
+        public void GetAllAuthors_ShouldReturnOk()
         {
             mockService = new Mock<IAuthorService>();
             mockService.Setup(o => o.GetAllAuthors()).Returns(list);

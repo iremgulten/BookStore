@@ -3,7 +3,9 @@ using BookStore.Business.DataTransferObjects.AuthorsDTO;
 using BookStore.Business.DataTransferObjects.BooksDTO;
 using BookStore.Business.DataTransferObjects.GenresDTO;
 using BookStore.Business.DataTransferObjects.PublishersDTO;
+using BookStore.Business.DataTransferObjects.UserFavBookDTO;
 using BookStore.Entities.BookStoreEntities;
+using BookStore.Entities.UserIdentityEntities;
 
 namespace BookStore.Business.Mapper
 {
@@ -35,6 +37,12 @@ namespace BookStore.Business.Mapper
             CreateMap<Publisher, AddNewPublisherRequest>().ReverseMap();
             CreateMap<Publisher, EditPublisherRequest>().ReverseMap();
             CreateMap<Publisher, PublisherListRequest>().ReverseMap();
+
+            CreateMap<AspNetUser, UserNameDTO>().ReverseMap();
+            CreateMap<Book, BookNameDTO>().ReverseMap();
+            CreateMap<UserFavBook, UserFavBookRequest>().ReverseMap();
+
+
         }
     }
 }

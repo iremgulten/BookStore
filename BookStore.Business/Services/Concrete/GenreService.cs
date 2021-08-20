@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using BookStore.Business.DataTransferObjects.GenresDTO;
 using BookStore.Business.Services.Abstract;
@@ -18,34 +19,34 @@ namespace BookStore.Business.Services.Concrete
             this.mapper = mapper;
         }
         
-        public void AddGenre(AddNewGenreRequest request)
+        public async Task AddGenre(AddNewGenreRequest request)
         {
             var newGenre = mapper.Map<Genre>(request);
-            genreRepository.Add(newGenre);
+            await genreRepository.Add(newGenre);
         }
 
-        public void DeleteGenre(GenreListRequest genreListrequest)
+        public async Task DeleteGenre(GenreListRequest genreListrequest)
         {
             var genre = mapper.Map<Genre>(genreListrequest);
-            genreRepository.Delete(genre);
+            await genreRepository.Delete(genre);
         }
 
-        public IList<GenreListRequest> GetAllGenres()
+        public async Task<IList<GenreListRequest>> GetAllGenres()
         {
-            var dtoList = genreRepository.GetAll().ToList();
+            var dtoList = await genreRepository.GetAll();
             return mapper.Map<IList<GenreListRequest>>(dtoList);
         }
 
-        public GenreListRequest GetGenresById(int id)
+        public async Task<GenreListRequest> GetGenresById(int id)
         {
-            Genre genre = genreRepository.GetById(id);
+            Genre genre = await genreRepository.GetById(id);
             return mapper.Map<GenreListRequest>(genre);
         }
 
-        public void UpdateGenre(EditGenreRequest request)
+        public async Task UpdateGenre(EditGenreRequest request)
         {
             var genre = mapper.Map<Genre>(request);
-            genreRepository.Update(genre);
+            await genreRepository.Update(genre);
         }
     }
 }

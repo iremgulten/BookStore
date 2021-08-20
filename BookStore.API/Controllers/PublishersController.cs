@@ -1,4 +1,5 @@
-﻿using BookStore.Business.DataTransferObjects.PublishersDTO;
+﻿using System.Threading.Tasks;
+using BookStore.Business.DataTransferObjects.PublishersDTO;
 using BookStore.Business.DataTransferObjects.UserIdentityDTO;
 using BookStore.Business.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
@@ -16,16 +17,16 @@ namespace BookStore.API.Controllers
             service = publisherService;
         }
         [HttpGet("GetAllPublishers")]
-        public IActionResult GetAllPublishers()
+        public async Task<IActionResult> GetAllPublishers()
         {
-            var result = service.GetAllPublishers();
+            var result = await service .GetAllPublishers();
             return Ok(result);
         }
 
         [HttpGet("GetPublisherById/{id:int}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var publisherResponseList = service.GetPublisherById(id);
+            var publisherResponseList = await service.GetPublisherById(id);
             if (publisherResponseList != null)
             {
                 return Ok(publisherResponseList);
@@ -35,34 +36,33 @@ namespace BookStore.API.Controllers
 
         [HttpPost("AddNewPublisher")]
         [Authorize(Roles = UserRoles.Admin)]
-        public IActionResult AddPublisher(AddNewPublisherRequest request)
+        public async Task<IActionResult> AddPublisher(AddNewPublisherRequest request)
         {
-            service.AddPublisher(request);
+            await service .AddPublisher(request);
             return Ok();
         }
 
         [HttpPut("UpdatePublisher")]
         [Authorize(Roles = UserRoles.Admin)]
-        public IActionResult UpdatePublisher(EditPublisherRequest request)
+        public async Task<IActionResult> UpdatePublisher(EditPublisherRequest request)
         {
-            var isExisting = service.GetPublisherById(request.Id);
+            var isExisting = await service.GetPublisherById(request.Id);
             if (isExisting == null)
                 return NotFound();
-
-            service.UpdatePublisher(request);
-            return Ok();   
+            await service .UpdatePublisher(request);
+            return Ok(); 
         }
 
         [HttpDelete("DeletePublisher/{id}")]
         [Authorize(Roles = UserRoles.Admin)]
-        public IActionResult DeletePublisher(int id)
+        public async Task<IActionResult> DeletePublisher(int id)
         {
-            var isExisting = service.GetPublisherById(id);
+            var isExisting = await service.GetPublisherById(id);
             if (isExisting == null)
             {
                 return NotFound();
             }
-            service.DeletePublisher(isExisting);
+            await service .DeletePublisher(isExisting);
             return Ok();
         }
     }

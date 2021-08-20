@@ -58,6 +58,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[UserFavBook]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[UsersTable]",
          "ObjectType": 0
       }

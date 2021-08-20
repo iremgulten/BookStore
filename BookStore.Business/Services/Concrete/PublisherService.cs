@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using BookStore.Business.DataTransferObjects.PublishersDTO;
 using BookStore.Business.Services.Abstract;
@@ -17,34 +18,34 @@ namespace BookStore.Business.Services.Concrete
             this.publisherRepository = publisherRepository;
             this.mapper = mapper;
         }
-        public void AddPublisher(AddNewPublisherRequest request)
+        public async Task AddPublisher(AddNewPublisherRequest request)
         {
             var newPublisher = mapper.Map<Publisher>(request);
-            publisherRepository.Add(newPublisher);
+            await publisherRepository.Add(newPublisher);
         }
 
-        public void DeletePublisher(PublisherListRequest publisherListRequest)
+        public async Task DeletePublisher(PublisherListRequest publisherListRequest)
         {
             var publisher = mapper.Map<Publisher>(publisherListRequest);
-            publisherRepository.Delete(publisher);
+            await publisherRepository.Delete(publisher);
         }
 
-        public IList<PublisherListRequest> GetAllPublishers()
+        public async Task<IList<PublisherListRequest>> GetAllPublishers()
         {
-            var dtoList = publisherRepository.GetAll().ToList();
+            var dtoList = await publisherRepository.GetAll();
             return mapper.Map<IList<PublisherListRequest>>(dtoList);
         }
 
-        public PublisherListRequest GetPublisherById(int id)
+        public async Task<PublisherListRequest> GetPublisherById(int id)
         {
-            Publisher publisher = publisherRepository.GetById(id);
+            Publisher publisher = await publisherRepository.GetById(id);
             return mapper.Map<PublisherListRequest>(publisher);
         }
 
-        public void UpdatePublisher(EditPublisherRequest request)
+        public async Task UpdatePublisher(EditPublisherRequest request)
         {
             var publisher = mapper.Map<Publisher>(request);
-            publisherRepository.Update(publisher);
+            await publisherRepository.Update(publisher);
         }
     }
 }

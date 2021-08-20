@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using BookStore.Business.DataTransferObjects.AuthorsDTO;
 using BookStore.Business.Services.Abstract;
@@ -17,34 +18,34 @@ namespace BookStore.Business.Services.Concrete
             this.authorRepository = authorRepository;
             this.mapper = mapper;
         }
-        public void AddAuthor(AddNewAuthorRequest request)
+        public async Task AddAuthor(AddNewAuthorRequest request)
         {
             var newAuthor = mapper.Map<Author>(request);
-            authorRepository.Add(newAuthor);
+            await authorRepository.Add(newAuthor);
         }
 
-        public void DeleteAuthor(AuthorsListRequest request)
+        public async Task DeleteAuthor(AuthorsListRequest request)
         {
             var author = mapper.Map<Author>(request);
-            authorRepository.Delete(author);
+            await authorRepository.Delete(author);
         }
 
-        public IList<AuthorsListRequest> GetAllAuthors()
+        public async Task<IList<AuthorsListRequest>> GetAllAuthors()
         {
-            var dtoList = authorRepository.GetAll().ToList();
+            var dtoList = await authorRepository.GetAll();
             return mapper.Map<IList<AuthorsListRequest>>(dtoList);
         }
 
-        public AuthorsListRequest GetAuthorById(int id)
+        public async Task<AuthorsListRequest> GetAuthorById(int id)
         {
-            var author = authorRepository.GetById(id);
+            var author = await authorRepository.GetById(id);
             return mapper.Map<AuthorsListRequest>(author);
         }
 
-        public void UpdateAuthor(EditAuthorRequest request)
+        public async Task UpdateAuthor(EditAuthorRequest request)
         {
             var author = mapper.Map<Author>(request);
-            authorRepository.Update(author);
+            await authorRepository.Update(author);
         }
     }
 }

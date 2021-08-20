@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using BookStore.DataAccess.Repositories.Abstract;
 using BookStore.Entities.BookStoreEntities;
 using Microsoft.EntityFrameworkCore;
@@ -13,33 +14,34 @@ namespace BookStore.DataAccess.Repositories.Concrete
         {
             dbContext = context;
         }
-        public Publisher Add(Publisher entity)
+        public async Task<Publisher> Add(Publisher entity)
         {
-            dbContext.Publishers.Add(entity);
-            dbContext.SaveChanges();
+            await dbContext.Publishers.AddAsync(entity);
+            await dbContext.SaveChangesAsync();
             return entity;
         }
 
-        public void Delete(Publisher entity)
+        public async Task<Publisher> Delete(Publisher entity)
         {
             dbContext.Publishers.Remove(entity);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
+            return entity;
         }
 
-        public IList<Publisher> GetAll()
+        public async Task<IList<Publisher>> GetAll()
         {
-            return dbContext.Publishers.ToList();
+            return await dbContext.Publishers.ToListAsync();
         }
 
-        public Publisher GetById(int id)
+        public async Task<Publisher> GetById(int id)
         {
-            return dbContext.Publishers.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            return await dbContext.Publishers.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Publisher Update(Publisher entity)
+        public async Task<Publisher> Update(Publisher entity)
         {
             dbContext.Publishers.Update(entity);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return entity;
         }
     }

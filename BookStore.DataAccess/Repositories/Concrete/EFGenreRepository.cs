@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using BookStore.DataAccess.Repositories.Abstract;
 using BookStore.Entities.BookStoreEntities;
 using Microsoft.EntityFrameworkCore;
@@ -15,32 +16,33 @@ namespace BookStore.DataAccess.Repositories.Concrete
             dbContext = context;
         }
 
-        public Genre Add(Genre entity)
+        public async Task<Genre> Add(Genre entity)
         {
-            dbContext.Genres.Add(entity);
-            dbContext.SaveChanges();
+            await dbContext.Genres.AddAsync(entity);
+            await dbContext.SaveChangesAsync();
             return entity;
         }
 
-        public void Delete(Genre entity)
+        public async Task<Genre> Delete(Genre entity)
         {
             dbContext.Genres.Remove(entity);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
+            return entity;
         }
-        public IList<Genre> GetAll()
+        public async Task<IList<Genre>> GetAll()
         {
-            return dbContext.Genres.ToList();
+            return await dbContext.Genres.ToListAsync();
         }
 
-        public Genre GetById(int id)
+        public async Task<Genre> GetById(int id)
         {
-            return dbContext.Genres.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            return await dbContext.Genres.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Genre Update(Genre entity)
+        public async Task<Genre> Update(Genre entity)
         {
             dbContext.Genres.Update(entity);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return entity;
         }
     }
