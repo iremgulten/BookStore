@@ -15,17 +15,18 @@ namespace BookStore.DataAccess.Repositories.Concrete
         {
             dbContext = context;
         }
-        public async Task<UserFavBook> Add(UserFavBook entity)
+        public UserFavBook Add(UserFavBook entity)
         {
-            await dbContext.AddAsync(entity);
-            await dbContext.SaveChangesAsync();
+            dbContext.AddAsync(entity);
+            dbContext.SaveChangesAsync();
             return entity;
         }
 
-        public async Task<UserFavBook> Delete(UserFavBook entity)
+
+        public UserFavBook Delete(UserFavBook entity)
         {
             dbContext.Update(entity);
-            await dbContext.SaveChangesAsync();
+            dbContext.SaveChangesAsync();
             return entity;
         }
 
@@ -35,22 +36,27 @@ namespace BookStore.DataAccess.Repositories.Concrete
             return books;
         }
 
-        public async Task<UserFavBook> GetByUserId(string id)
+        public IList<UserFavBook> GetByUserId(string id, IncludeTypes type)
         {
-            return await dbContext.UserFavBooks.AsNoTracking().FirstOrDefaultAsync(x => x.AspNetUserId == id);
+            IList<UserFavBook> userFav= IncludeModels(type).ToList();
+            return userFav.Where(x => x.AspNetUserId.ToLower().Contains(id.ToLower())).ToList();
         }
 
-        public async Task<IList<UserFavBook>> GetByUserName(string username)
+        public IList<UserFavBook> GetByUserName(string username, IncludeTypes type)
         {
-            return await dbContext.UserFavBooks.AsNoTracking().Where(x => x.AspNetUser.UserName.Contains(username)).ToListAsync();
+            IList<UserFavBook> userFav = IncludeModels(type).ToList();
+            return userFav.Where(x => x.AspNetUser.UserName.ToLower().Contains(username.ToLower())).ToList();
         }
 
-        public async Task<UserFavBook> Update(UserFavBook entity)
+        public UserFavBook Update(UserFavBook entity)
         {
             dbContext.Update(entity);
-            await dbContext.SaveChangesAsync();
+            dbContext.SaveChangesAsync();
             return entity;
         }
+
+
+
         private List<UserFavBook> IncludeModels(IncludeTypes paramEnumType)
         {
             var books = dbContext.UserFavBooks;

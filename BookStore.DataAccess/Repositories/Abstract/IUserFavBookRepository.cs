@@ -11,10 +11,10 @@ namespace BookStore.DataAccess.Repositories.Abstract
     public interface IUserFavBookRepository 
     {
         IList<UserFavBook> GetAll(IncludeTypes type);
-        Task<UserFavBook> GetByUserId(string id);
-        Task<IList<UserFavBook>> GetByUserName(string username);
-        Task<UserFavBook> Add(UserFavBook entity);
-        Task<UserFavBook> Update(UserFavBook entity);
-        Task<UserFavBook> Delete(UserFavBook entity);
+        IList<UserFavBook> GetByUserId(string id, IncludeTypes type);
+        IList<UserFavBook> GetByUserName(string username, IncludeTypes type);
+        UserFavBook Add(UserFavBook entity);
+        UserFavBook Update(UserFavBook entity);
+        UserFavBook Delete(UserFavBook entity);
     }
 }

@@ -11,5 +11,8 @@ namespace BookStore.Business.Services.Abstract
     public interface IUserFavBookService
     {
         IList<UserFavBookRequest> GetAll();
+        IList<GetByUserIdDTO> GetByUserId(UserIdDTO userId);
+        IList<GetByUserNameDTO> GetByUserName(UserNameDTO userId);
+
     }
 }
