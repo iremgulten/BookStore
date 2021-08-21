@@ -112,7 +112,7 @@ namespace BookStore.API
 
             app.UseAuthorization();
 
-            app.UseExceptionHandlerMiddleware();
+          //  app.UseExceptionHandlerMiddleware();
 
             app.UseEndpoints(endpoints =>
             {

@@ -25,7 +25,11 @@ namespace BookStore.Business.Services.Concrete
             var dtoList = repository.GetAll(IncludeTypes.AspNetUser | IncludeTypes.Book);
             return mapper.Map<IList<UserFavBookRequest>>(dtoList);
         }
-
+        public UserFavBook GetById(int id)
+        {
+            var dtoList = repository.GetById(id, IncludeTypes.AspNetUser | IncludeTypes.Book);
+            return dtoList;
+        }
         public IList<GetByUserIdDTO> GetByUserId(UserIdDTO userId)
         {
             var dtoList = repository.GetByUserId(userId.AspNetUserId, IncludeTypes.AspNetUser | IncludeTypes.Book);
@@ -37,5 +41,11 @@ namespace BookStore.Business.Services.Concrete
             var dtoList = repository.GetByUserName(userId.UserName, IncludeTypes.AspNetUser | IncludeTypes.Book);
             return mapper.Map<IList<GetByUserNameDTO>>(dtoList);
         }
+        public void Delete(UserFavBook request)
+        {
+            repository.Delete(request);
+        }
+
+
     }
 }

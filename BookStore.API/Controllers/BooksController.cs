@@ -38,9 +38,7 @@ namespace BookStore.API.Controllers
         {
             var book = service.GetBooksById(id);
             if (book != null)
-            {
                 return Ok(book);
-            }
             return NotFound();
         }
         [HttpGet("GetBookFlagById/{id:int}")]
@@ -48,9 +46,7 @@ namespace BookStore.API.Controllers
         {
             var bookFlag = service.GetBookFlagById(id);
             if (bookFlag != null)
-            {
                 return Ok(bookFlag);
-            }
             return NotFound();
         }
         [HttpGet("GetByAuthorId/{id:int}")]
@@ -58,9 +54,7 @@ namespace BookStore.API.Controllers
         {
             var books = service.GetBooksByAuthor(id);
             if (books != null)
-            {
                 return Ok(books);
-            }
             return NotFound();
         }
         [HttpPost("GetByAuthorName")]
@@ -129,7 +123,7 @@ namespace BookStore.API.Controllers
             return Ok();  
         }
         [HttpDelete("DeleteBook/{id}")]
-        [Authorize(Roles = UserRoles.Admin)]
+       // [Authorize(Roles = UserRoles.Admin)]
         public IActionResult DeleteBook(int id)
         {
             var isExisting = service.GetBooksById(id);

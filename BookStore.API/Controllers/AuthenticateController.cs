@@ -88,7 +88,7 @@ namespace BookStore.API.Controllers
 
         [HttpPost]
         [Route("register-admin")]
-        [Authorize(Roles = UserRoles.Admin)]
+       // [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> RegisterAdmin(RegisterModel model)
         {
             if (UsernameControlAsync(model).Result == null)

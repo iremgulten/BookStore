@@ -24,6 +24,14 @@ namespace BookStore.API.Controllers
             var result = service.GetAll();
             return Ok(result);
         }
+        [HttpGet("GetById/{id}")]
+        public IActionResult GetById(int id)
+        {
+            var userFav = service.GetById(id);
+            if (userFav != null)
+                return Ok(userFav);
+            return NotFound();
+        }
         [HttpPost("GetByUserId")]
         public IActionResult GetByUserId(UserIdDTO userId)
         {
@@ -41,6 +49,15 @@ namespace BookStore.API.Controllers
                 return Ok(userFav);
 
             return NotFound();
+        }
+        [HttpDelete("Delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            var isExisting = service.GetById(id);
+            if (isExisting == null)
+                return NotFound();
+            service.Delete(isExisting);
+            return Ok();
         }
     }
 }

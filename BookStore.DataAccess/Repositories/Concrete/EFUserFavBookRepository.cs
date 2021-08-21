@@ -25,7 +25,7 @@ namespace BookStore.DataAccess.Repositories.Concrete
 
         public UserFavBook Delete(UserFavBook entity)
         {
-            dbContext.Update(entity);
+            dbContext.UserFavBooks.Remove(entity);
             dbContext.SaveChangesAsync();
             return entity;
         }
@@ -34,6 +34,11 @@ namespace BookStore.DataAccess.Repositories.Concrete
         {
             IList<UserFavBook> books = IncludeModels(type).ToList();
             return books;
+        }
+        public UserFavBook GetById(int id, IncludeTypes type)
+        {
+            IList<UserFavBook> userFav = IncludeModels(type).ToList();
+            return userFav.FirstOrDefault(x => x.Id == id);
         }
 
         public IList<UserFavBook> GetByUserId(string id, IncludeTypes type)
@@ -50,13 +55,10 @@ namespace BookStore.DataAccess.Repositories.Concrete
 
         public UserFavBook Update(UserFavBook entity)
         {
-            dbContext.Update(entity);
+            dbContext.UserFavBooks.Update(entity);
             dbContext.SaveChangesAsync();
             return entity;
         }
-
-
-
         private List<UserFavBook> IncludeModels(IncludeTypes paramEnumType)
         {
             var books = dbContext.UserFavBooks;
