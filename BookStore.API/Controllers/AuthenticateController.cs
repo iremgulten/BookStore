@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using BookStore.Business.DataTransferObjects.UserIdentityDTO;
 using BookStore.Entities;
 using BookStore.Entities.UserIdentityEntities;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -88,7 +87,7 @@ namespace BookStore.API.Controllers
 
         [HttpPost]
         [Route("register-admin")]
-       // [Authorize(Roles = UserRoles.Admin)]
+        //[Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> RegisterAdmin(RegisterModel model)
         {
             if (UsernameControlAsync(model).Result == null)

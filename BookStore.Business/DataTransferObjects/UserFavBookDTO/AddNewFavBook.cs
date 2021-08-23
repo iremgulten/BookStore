@@ -8,7 +8,7 @@ namespace BookStore.Business.DataTransferObjects.UserFavBookDTO
 {
     public class AddNewFavBook
     {
-        public UserNameDTO userName { get; set; }
-        public BookNameDTO bookName { get; set; }
+        public string UserId { get; set; }
+        public int BookId { get; set; }
     }
 }

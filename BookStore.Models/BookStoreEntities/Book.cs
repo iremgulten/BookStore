@@ -2,17 +2,10 @@
 using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace BookStore.Entities.BookStoreEntities
 {
     public partial class Book
     {
-        public Book()
-        {
-            UserFavBooks = new HashSet<UserFavBook>();
-        }
-
         public int Id { get; set; }
         public string ISBN { get; set; }
         public string Title { get; set; }
@@ -28,6 +21,5 @@ namespace BookStore.Entities.BookStoreEntities
         public virtual Author Author { get; set; }
         public virtual Genre Genre { get; set; }
         public virtual Publisher Publisher { get; set; }
-        public virtual ICollection<UserFavBook> UserFavBooks { get; set; }
     }
 }

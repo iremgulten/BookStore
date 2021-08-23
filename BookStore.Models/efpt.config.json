@@ -1,5 +1,5 @@
 ﻿{
-   "CodeGenerationMode": 0,
+   "CodeGenerationMode": 2,
    "ContextClassName": "BookstoreContext",
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
@@ -7,7 +7,7 @@
    "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": null,
-   "OutputPath": "BookStoreEntities",
+   "OutputPath": "UserIdentityEntities",
    "ProjectRootNamespace": "BookStore.Entities",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 0,
@@ -58,7 +58,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[UserFavBook]",
+         "Name": "[dbo].[UserBook]",
          "ObjectType": 0
       },
       {

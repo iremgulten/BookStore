@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using BookStore.Business.DataTransferObjects.UserFavBookDTO;
@@ -10,11 +12,11 @@ using BookStore.Entities.BookStoreEntities;
 
 namespace BookStore.Business.Services.Concrete
 {
-    public class UserFavBookService : IUserFavBookService
+    public class UserBookService : IUserBookService
     {
-        private IUserFavBookRepository repository;
+        private IUserBookRepository repository;
         private IMapper mapper;
-        public UserFavBookService(IUserFavBookRepository repository, IMapper mapper)
+        public UserBookService(IUserBookRepository repository, IMapper mapper)
         {
             this.repository = repository;
             this.mapper = mapper;
@@ -22,30 +24,34 @@ namespace BookStore.Business.Services.Concrete
 
         public IList<UserFavBookRequest> GetAll()
         {
-            var dtoList = repository.GetAll(IncludeTypes.AspNetUser | IncludeTypes.Book);
+            var dtoList = repository.GetAll(IncludeTypes.User | IncludeTypes.Book);
             return mapper.Map<IList<UserFavBookRequest>>(dtoList);
         }
-        public UserFavBook GetById(int id)
+        public UserBook GetById(int id)
         {
-            var dtoList = repository.GetById(id, IncludeTypes.AspNetUser | IncludeTypes.Book);
-            return dtoList;
+            var dto = repository.GetById(id, IncludeTypes.User | IncludeTypes.Book);
+            return dto;
         }
         public IList<GetByUserIdDTO> GetByUserId(UserIdDTO userId)
         {
-            var dtoList = repository.GetByUserId(userId.AspNetUserId, IncludeTypes.AspNetUser | IncludeTypes.Book);
+            var dtoList = repository.GetByUserId(userId.UserId, IncludeTypes.User | IncludeTypes.Book);
             return mapper.Map<IList<GetByUserIdDTO>>(dtoList);
         }
 
         public IList<GetByUserNameDTO> GetByUserName(UserNameDTO userId)
         {
-            var dtoList = repository.GetByUserName(userId.UserName, IncludeTypes.AspNetUser | IncludeTypes.Book);
+            var dtoList = repository.GetByUserName(userId.UserName, IncludeTypes.User | IncludeTypes.Book);
             return mapper.Map<IList<GetByUserNameDTO>>(dtoList);
         }
-        public void Delete(UserFavBook request)
+        public void Delete(UserBook request)
         {
             repository.Delete(request);
         }
 
-
+        public void Add(AddNewFavBook request)
+        {
+            var newUserFav = mapper.Map<UserBook>(request);
+            repository.Add(newUserFav);
+        }
     }
 }

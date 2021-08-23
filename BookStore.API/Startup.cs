@@ -1,11 +1,11 @@
 using System.Text;
-using BookStore.API.Middleware;
 using BookStore.Business.Mapper;
 using BookStore.Business.Services.Abstract;
 using BookStore.Business.Services.Concrete;
 using BookStore.DataAccess;
 using BookStore.DataAccess.Repositories.Abstract;
 using BookStore.DataAccess.Repositories.Concrete;
+using BookStore.Entities.BookStoreEntities;
 using BookStore.Entities.UserIdentityEntities;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -34,6 +34,7 @@ namespace BookStore.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<BookService>());
+                  //  .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             
             services.AddAutoMapper(typeof(MappingProfile));
             
@@ -54,15 +55,13 @@ namespace BookStore.API
             services.AddScoped<IBooksService, BookService>();
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IPublisherService, PublisherService>();
-            services.AddScoped<IUserFavBookService, UserFavBookService>();
-
+            services.AddScoped<IUserBookService, UserBookService>();
 
             services.AddScoped<IBooksRepository, EFBooksRepository>();
             services.AddScoped<IGenreRepository, EFGenreRepository>();
             services.AddScoped<IAuthorRepository, EFAuthorRepository>();
             services.AddScoped<IPublisherRepository, EFPublisherRepository>();
-            services.AddScoped<IUserFavBookRepository, EFUserFavBookRepository>();
-
+            services.AddScoped<IUserBookRepository, EFUserBookRepository>();
 
             services.AddSwaggerGen(option =>
             {
@@ -77,6 +76,7 @@ namespace BookStore.API
                     {
                         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                     })
                     .AddJwtBearer(opt =>
                     {
@@ -96,7 +96,7 @@ namespace BookStore.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseMiddleware<RequestResponseMiddleware>();
+            //app.UseMiddleware<RequestResponseMiddleware>();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

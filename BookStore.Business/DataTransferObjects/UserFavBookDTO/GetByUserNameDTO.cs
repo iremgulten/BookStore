@@ -8,7 +8,7 @@ namespace BookStore.Business.DataTransferObjects.UserFavBookDTO
 {
     public class GetByUserNameDTO
     {
-        public string AspNetUserId { get; set; }
+        public string UserId { get; set; }
         public BookNameDTO Book { get; set; }
     }
 }

@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace BookStore.Entities.BookStoreEntities
 {
     public partial class Genre

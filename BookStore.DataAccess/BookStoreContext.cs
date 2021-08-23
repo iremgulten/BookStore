@@ -2,14 +2,13 @@
 using System;
 using BookStore.Entities.BookStoreEntities;
 using BookStore.Entities.UserIdentityEntities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-#nullable disable
-
 namespace BookStore.DataAccess
 {
-    public partial class BookStoreContext : DbContext
+    public partial class BookStoreContext : IdentityDbContext<ApplicationUser>
     {
         public BookStoreContext()
         {
@@ -20,22 +19,19 @@ namespace BookStore.DataAccess
         {
         }
 
-        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetRoleClaim> AspNetRoleClaims { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
-        public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
+
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
         public virtual DbSet<Publisher> Publishers { get; set; }
-        public virtual DbSet<UserFavBook> UserFavBooks { get; set; }
+        public virtual DbSet<UserBook> UserBooks { get; set; }
         public virtual DbSet<UsersTable> UsersTables { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
             modelBuilder.Entity<AspNetRole>(entity =>
@@ -175,28 +171,30 @@ namespace BookStore.DataAccess
                     .HasMaxLength(100);
             });
 
-            modelBuilder.Entity<UserFavBook>(entity =>
+            modelBuilder.Entity<UserBook>(entity =>
             {
-                entity.ToTable("UserFavBook");
+                entity.HasNoKey();
 
-                entity.Property(e => e.AspNetUserId)
+                entity.ToTable("UserBook");
+
+                entity.Property(e => e.BookId).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.UserId)
                     .IsRequired()
                     .HasMaxLength(450)
                     .HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.BookId).HasDefaultValueSql("((1))");
-
-                entity.HasOne(d => d.AspNetUser)
-                    .WithMany(p => p.UserFavBooks)
-                    .HasForeignKey(d => d.AspNetUserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_UserFavBook_AspNetUsers");
-
                 entity.HasOne(d => d.Book)
-                    .WithMany(p => p.UserFavBooks)
+                    .WithMany()
                     .HasForeignKey(d => d.BookId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_UserFavBook_Books");
+                    .HasConstraintName("FK_UserBook_Books");
+
+                entity.HasOne(d => d.User)
+                    .WithMany()
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UserBook_AspNetUsers");
             });
 
             modelBuilder.Entity<UsersTable>(entity =>
@@ -216,9 +214,7 @@ namespace BookStore.DataAccess
                 entity.Property(e => e.Role).HasMaxLength(50);
             });
 
-            OnModelCreatingPartial(modelBuilder);
         }
 
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

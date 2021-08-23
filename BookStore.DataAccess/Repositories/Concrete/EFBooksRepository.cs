@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using BookStore.DataAccess.Repositories.Abstract;
 using BookStore.Entities.BookStoreEntities;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +14,7 @@ namespace BookStore.DataAccess.Repositories.Concrete
         Publisher,
         Genre,
         Book,
-        AspNetUser
+        User
     }
 
     public class EFBooksRepository : IBooksRepository

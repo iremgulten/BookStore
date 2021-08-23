@@ -11,10 +11,10 @@ namespace BookStore.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserFavBooksController : ControllerBase
+    public class UserBookController : ControllerBase
     {
-        private IUserFavBookService service;
-        public UserFavBooksController(IUserFavBookService service)
+        private IUserBookService service;
+        public UserBookController(IUserBookService service)
         {
             this.service = service;
         }
@@ -32,7 +32,7 @@ namespace BookStore.API.Controllers
                 return Ok(userFav);
             return NotFound();
         }
-        [HttpPost("GetByUserId")]
+        [HttpGet("GetByUserId")]
         public IActionResult GetByUserId(UserIdDTO userId)
         {
             var userFav = service.GetByUserId(userId);
@@ -41,7 +41,7 @@ namespace BookStore.API.Controllers
 
             return NotFound();
         }
-        [HttpPost("GetByUserName")]
+        [HttpGet("GetByUserName")]
         public IActionResult GetByUserName(UserNameDTO userName)
         {
             var userFav = service.GetByUserName(userName);
@@ -57,6 +57,12 @@ namespace BookStore.API.Controllers
             if (isExisting == null)
                 return NotFound();
             service.Delete(isExisting);
+            return Ok();
+        }
+        [HttpPost("AddNewUserFav")]
+        public IActionResult Add(AddNewFavBook request)
+        {
+            service.Add(request);
             return Ok();
         }
     }

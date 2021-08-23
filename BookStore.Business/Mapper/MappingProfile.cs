@@ -40,15 +40,11 @@ namespace BookStore.Business.Mapper
 
             CreateMap<AspNetUser, UserNameDTO>().ReverseMap();
             CreateMap<Book, BookNameDTO>().ReverseMap();
-            CreateMap<UserFavBook, UserFavBookRequest>().ReverseMap();
-            CreateMap<UserFavBook, UserIdDTO>().ReverseMap();
-            CreateMap<UserFavBook, GetByUserNameDTO>().ReverseMap();
-            CreateMap<UserFavBook, GetByUserIdDTO>().ReverseMap();
-
-
-
-
-
+            CreateMap<UserBook, UserFavBookRequest>().ReverseMap();
+            CreateMap<UserBook, UserIdDTO>().ReverseMap();
+            CreateMap<UserBook, GetByUserNameDTO>().ReverseMap();
+            CreateMap<UserBook, GetByUserIdDTO>().ReverseMap();
+            CreateMap<UserBook, AddNewFavBook>().ReverseMap();
 
         }
     }

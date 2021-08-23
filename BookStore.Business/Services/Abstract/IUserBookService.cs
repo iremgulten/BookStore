@@ -8,12 +8,13 @@ using BookStore.Entities.BookStoreEntities;
 
 namespace BookStore.Business.Services.Abstract
 {
-    public interface IUserFavBookService
+    public interface IUserBookService
     {
         IList<UserFavBookRequest> GetAll();
-        UserFavBook GetById(int id);
+        UserBook GetById(int id);
         IList<GetByUserIdDTO> GetByUserId(UserIdDTO userId);
         IList<GetByUserNameDTO> GetByUserName(UserNameDTO userId);
-        void Delete(UserFavBook request);
+        void Delete(UserBook request);
+        void Add(AddNewFavBook request);
     }
 }

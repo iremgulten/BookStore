@@ -1,5 +1,5 @@
 ﻿{
-   "CodeGenerationMode": 0,
+   "CodeGenerationMode": 2,
    "ContextClassName": "BookStoreContext",
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
@@ -58,7 +58,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[UserFavBook]",
+         "Name": "[dbo].[UserBook]",
          "ObjectType": 0
       },
       {

@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace BookStore.Entities.UserIdentityEntities
 {
     public partial class AspNetUserRole
