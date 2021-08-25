@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BookStore.Business.DataTransferObjects.UserFavBookDTO
 {
-    public class BookNameDTO
+    public class DeleteUserFav
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
+        public UserNameDTO UserName { get; set; }
+        public int BookId { get; set; }
     }
 }

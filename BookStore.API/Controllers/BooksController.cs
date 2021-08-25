@@ -123,7 +123,7 @@ namespace BookStore.API.Controllers
             return Ok();  
         }
         [HttpDelete("DeleteBook/{id}")]
-       // [Authorize(Roles = UserRoles.Admin)]
+        [Authorize(Roles = UserRoles.Admin)]
         public IActionResult DeleteBook(int id)
         {
             var isExisting = service.GetBooksById(id);

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BookStore.Business.DataTransferObjects.UserIdentityDTO;
 using BookStore.Entities;
 using BookStore.Entities.UserIdentityEntities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -80,26 +81,32 @@ namespace BookStore.API.Controllers
             if (user != null)
             {
                 await userManager.AddToRoleAsync(user, UserRoles.User);
-                return Ok(new Response { Status = "Success", Message = Messages.CreationSuccess });
+                return Ok(new Response { Status = "Success", Message = Messages.UserCreationSuccess });
             }
-            return StatusCode(StatusCodes.Status404NotFound, new Response { Status = "Error", Message = Messages.CreationFailed });
+            return StatusCode(StatusCodes.Status404NotFound, new Response { Status = "Error", Message = Messages.UserCreationFailed });
         }
 
         [HttpPost]
         [Route("register-admin")]
-        //[Authorize(Roles = UserRoles.Admin)]
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> RegisterAdmin(RegisterModel model)
         {
             if (UsernameControlAsync(model).Result == null)
-                return StatusCode(StatusCodes.Status403Forbidden, new Response { Status = "Error", Message = Messages.UserExist});
+                return StatusCode(StatusCodes.Status403Forbidden, new Response { Status = "Error", Message = Messages.AdminExist});
             
             var admin = AddUserAsync(model).Result;
+
+            if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
+                await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+            if (!await roleManager.RoleExistsAsync(UserRoles.User))
+                await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+
             if (admin != null)
             {
                 await userManager.AddToRoleAsync(admin, UserRoles.Admin);
-                return Ok(new Response { Status = "Success", Message = Messages.CreationSuccess });
+                return Ok(new Response { Status = "Success", Message = Messages.AdminCreationSuccess });
             }
-            return StatusCode(StatusCodes.Status404NotFound, new Response { Status = "Error", Message = Messages.CreationFailed });
+            return StatusCode(StatusCodes.Status404NotFound, new Response { Status = "Error", Message = Messages.AdminCreationFailed });
      
         }
         private async Task<dynamic> UsernameControlAsync(RegisterModel model)

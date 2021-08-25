@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using BookStore.DataAccess.Repositories.Concrete;
 using BookStore.Entities.BookStoreEntities;
 
@@ -15,6 +11,6 @@ namespace BookStore.DataAccess.Repositories.Abstract
         IList<UserBook> GetByUserId(string id, IncludeTypes type);
         IList<UserBook> GetByUserName(string username, IncludeTypes type);
         UserBook Add(UserBook entity);
-        UserBook Delete(UserBook entity);
+        UserBook Delete(int id);
     }
 }

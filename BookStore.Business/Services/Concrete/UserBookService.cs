@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using BookStore.Business.DataTransferObjects.UserFavBookDTO;
 using BookStore.Business.Services.Abstract;
@@ -43,9 +40,13 @@ namespace BookStore.Business.Services.Concrete
             var dtoList = repository.GetByUserName(userId.UserName, IncludeTypes.User | IncludeTypes.Book);
             return mapper.Map<IList<GetByUserNameDTO>>(dtoList);
         }
-        public void Delete(UserBook request)
+        public void Delete(DeleteUserFav userFav)
         {
-            repository.Delete(request);
+            var userFavDto = GetByUserName(userFav.UserName).FirstOrDefault(x => x.Book.Id == userFav.BookId);
+            //UserBook userBookDto = mapper.Map<UserBook>(userFav);
+            //userBookDto.Id = userFavDto.Id;
+            //userBookDto.UserId = userFavDto.UserId;
+            repository.Delete(userFavDto.Id);
         }
 
         public void Add(AddNewFavBook request)

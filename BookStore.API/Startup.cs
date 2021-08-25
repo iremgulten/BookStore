@@ -5,7 +5,6 @@ using BookStore.Business.Services.Concrete;
 using BookStore.DataAccess;
 using BookStore.DataAccess.Repositories.Abstract;
 using BookStore.DataAccess.Repositories.Concrete;
-using BookStore.Entities.BookStoreEntities;
 using BookStore.Entities.UserIdentityEntities;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -18,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 
 namespace BookStore.API
 {
@@ -33,8 +33,8 @@ namespace BookStore.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<BookService>());
-                  //  .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<BookService>())
+                    .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             
             services.AddAutoMapper(typeof(MappingProfile));
             
@@ -91,6 +91,11 @@ namespace BookStore.API
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
                         };
                     });
+        }
+
+        private void AddNewtonsoftJson(System.Func<object, object> p)
+        {
+            throw new System.NotImplementedException();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using BookStore.Business.DataTransferObjects.UserFavBookDTO;
 using BookStore.Entities.BookStoreEntities;
 
@@ -14,7 +10,7 @@ namespace BookStore.Business.Services.Abstract
         UserBook GetById(int id);
         IList<GetByUserIdDTO> GetByUserId(UserIdDTO userId);
         IList<GetByUserNameDTO> GetByUserName(UserNameDTO userId);
-        void Delete(UserBook request);
+        void Delete(DeleteUserFav userFav);
         void Add(AddNewFavBook request);
     }
 }

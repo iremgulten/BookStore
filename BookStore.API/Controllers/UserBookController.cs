@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BookStore.Business.DataTransferObjects.UserFavBookDTO;
+﻿using BookStore.Business.DataTransferObjects.UserFavBookDTO;
+using BookStore.Business.DataTransferObjects.UserIdentityDTO;
 using BookStore.Business.Services.Abstract;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.API.Controllers
@@ -24,15 +21,8 @@ namespace BookStore.API.Controllers
             var result = service.GetAll();
             return Ok(result);
         }
-        [HttpGet("GetById/{id}")]
-        public IActionResult GetById(int id)
-        {
-            var userFav = service.GetById(id);
-            if (userFav != null)
-                return Ok(userFav);
-            return NotFound();
-        }
-        [HttpGet("GetByUserId")]
+
+        [HttpPost("GetByUserId")]
         public IActionResult GetByUserId(UserIdDTO userId)
         {
             var userFav = service.GetByUserId(userId);
@@ -41,7 +31,7 @@ namespace BookStore.API.Controllers
 
             return NotFound();
         }
-        [HttpGet("GetByUserName")]
+        [HttpPost("GetByUserName")]
         public IActionResult GetByUserName(UserNameDTO userName)
         {
             var userFav = service.GetByUserName(userName);
@@ -50,16 +40,15 @@ namespace BookStore.API.Controllers
 
             return NotFound();
         }
-        [HttpDelete("Delete/{id}")]
-        public IActionResult Delete(int id)
+        [HttpDelete("Delete")]
+        [Authorize(Roles = UserRoles.Admin)]
+        public IActionResult Delete(DeleteUserFav userFav)
         {
-            var isExisting = service.GetById(id);
-            if (isExisting == null)
-                return NotFound();
-            service.Delete(isExisting);
+            service.Delete(userFav);
             return Ok();
         }
         [HttpPost("AddNewUserFav")]
+        [Authorize(Roles = UserRoles.Admin)]
         public IActionResult Add(AddNewFavBook request)
         {
             service.Add(request);

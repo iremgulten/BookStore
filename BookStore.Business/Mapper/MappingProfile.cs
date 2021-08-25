@@ -38,13 +38,16 @@ namespace BookStore.Business.Mapper
             CreateMap<Publisher, EditPublisherRequest>().ReverseMap();
             CreateMap<Publisher, PublisherListRequest>().ReverseMap();
 
-            CreateMap<AspNetUser, UserNameDTO>().ReverseMap();
+            CreateMap<ApplicationUser, UserNameDTO>().ReverseMap();
             CreateMap<Book, BookNameDTO>().ReverseMap();
             CreateMap<UserBook, UserFavBookRequest>().ReverseMap();
             CreateMap<UserBook, UserIdDTO>().ReverseMap();
             CreateMap<UserBook, GetByUserNameDTO>().ReverseMap();
             CreateMap<UserBook, GetByUserIdDTO>().ReverseMap();
             CreateMap<UserBook, AddNewFavBook>().ReverseMap();
+            CreateMap<UserBook, DeleteUserFav>().ReverseMap();
+
+
 
         }
     }
