@@ -13,7 +13,7 @@ namespace BookStore.Business.FluentValidation
         public EditPublisherRequestValidator()
         {
             RuleFor(x => x.Id).NotEmpty().WithMessage("Id field cannot be empty");
-            RuleFor(x => x.Name).NotEmpty().WithMessage("Publisher Name field cannot be empty");
+            RuleFor(x => x.PublisherName).NotEmpty().WithMessage("Publisher Name field cannot be empty");
         }
     }
 }

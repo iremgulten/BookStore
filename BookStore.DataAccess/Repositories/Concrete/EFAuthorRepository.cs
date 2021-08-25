@@ -9,40 +9,40 @@ namespace BookStore.DataAccess.Repositories.Concrete
 {
     public class EFAuthorRepository : IAuthorRepository
     {
-        private BookStoreContext dbContext;
+        private BookStoreContext authorContext;
 
         public EFAuthorRepository(BookStoreContext context)
         {
-            dbContext = context;
+            authorContext = context;
         }
         public async Task<Author> Add(Author entity)
         {
-            await dbContext.Authors.AddAsync(entity);
-            await dbContext.SaveChangesAsync();
+            await authorContext.Authors.AddAsync(entity);
+            await authorContext.SaveChangesAsync();
             return entity;
         }
 
         public async Task<Author> Delete(Author entity)
         {
-            dbContext.Authors.Remove(entity);
-            await dbContext.SaveChangesAsync();
+            authorContext.Authors.Remove(entity);
+            await authorContext.SaveChangesAsync();
             return entity;
         }
 
         public async Task<IList<Author>> GetAll()
         {
-            return await dbContext.Authors.ToListAsync();
+            return await authorContext.Authors.ToListAsync();
         }
 
         public async Task<Author> GetById(int id)
         {
-            return await dbContext.Authors.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            return await authorContext.Authors.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Author> Update(Author entity)
         {
-            dbContext.Authors.Update(entity);
-            await dbContext.SaveChangesAsync();
+            authorContext.Authors.Update(entity);
+            await authorContext.SaveChangesAsync();
             return entity;
         }
     }

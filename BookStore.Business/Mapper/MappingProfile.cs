@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookStore.Business.DataTransferObjects;
 using BookStore.Business.DataTransferObjects.AuthorsDTO;
 using BookStore.Business.DataTransferObjects.BooksDTO;
 using BookStore.Business.DataTransferObjects.GenresDTO;
@@ -19,6 +20,8 @@ namespace BookStore.Business.Mapper
             CreateMap<Author, AddNewAuthorRequest>().ReverseMap();
             CreateMap<Author, AuthorsListRequest>().ReverseMap();
             CreateMap<Author, EditAuthorRequest>().ReverseMap();
+            CreateMap<Author, AuthorName>().ReverseMap();
+
 
             CreateMap<Book, AddNewBookRequest>().ReverseMap();
             CreateMap<Book, BookListRequest>().ReverseMap();
@@ -30,6 +33,8 @@ namespace BookStore.Business.Mapper
             CreateMap<Genre, EditGenreRequest>().ReverseMap();
             CreateMap<Genre, GenreNameRequest>().ReverseMap();
             CreateMap<GenreNameRequest, AddNewGenreRequest>().ReverseMap();
+            CreateMap<Genre, GenreNameDTO>().ReverseMap();
+
 
             CreateMap<Publisher, PublisherNameRequest>().ReverseMap();
             CreateMap<Publisher, GetBooksByPublisherName>().ReverseMap();
@@ -37,15 +42,28 @@ namespace BookStore.Business.Mapper
             CreateMap<Publisher, AddNewPublisherRequest>().ReverseMap();
             CreateMap<Publisher, EditPublisherRequest>().ReverseMap();
             CreateMap<Publisher, PublisherListRequest>().ReverseMap();
+            CreateMap<Publisher, PublisherNameDTO>().ReverseMap();
+
 
             CreateMap<ApplicationUser, UserNameDTO>().ReverseMap();
             CreateMap<Book, BookNameDTO>().ReverseMap();
+            CreateMap<Book, BookName>().ReverseMap();
             CreateMap<UserBook, UserFavBookRequest>().ReverseMap();
             CreateMap<UserBook, UserIdDTO>().ReverseMap();
             CreateMap<UserBook, GetByUserNameDTO>().ReverseMap();
             CreateMap<UserBook, GetByUserIdDTO>().ReverseMap();
             CreateMap<UserBook, AddNewFavBook>().ReverseMap();
             CreateMap<UserBook, DeleteUserFav>().ReverseMap();
+            
+            CreateMap<ComplexAddDTO, Author>().ReverseMap();
+            CreateMap<ComplexAddDTO, Genre>().ReverseMap();
+            CreateMap<ComplexAddDTO, Publisher>().ReverseMap();
+            CreateMap<ComplexAddDTO, Book>().ReverseMap();
+
+            CreateMap<AuthorName, GetBooksByAuthorName>().ReverseMap();
+
+
+
 
 
 

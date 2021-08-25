@@ -2,7 +2,7 @@
 {
     public class AddNewFavBook
     {
-        public string UserId { get; set; }
-        public int BookId { get; set; }
+        public UserNameDTO UserName { get; set; }
+        public BookName Title { get; set; }
     }
 }

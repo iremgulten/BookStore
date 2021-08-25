@@ -7,7 +7,7 @@ namespace BookStore.Business.FluentValidation
     {
         public DeleteUserFavValidator()
         {
-            RuleFor(x => x.BookId).NotEmpty().WithMessage("Book ID field cannot be empty");
+        //    RuleFor(x => x.BookId).NotEmpty().WithMessage("Book ID field cannot be empty");
             RuleFor(x => x.UserName).NotEmpty().WithMessage("UserName field cannot be empty");
         }
     }

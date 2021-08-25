@@ -7,7 +7,7 @@ namespace BookStore.Business.FluentValidation
     {
         public AddNewPublisherRequestValidator()
         {
-            RuleFor(x => x.Name).NotEmpty().WithMessage("Publisher Name field cannot be empty");
+            RuleFor(x => x.PublisherName).NotEmpty().WithMessage("Publisher Name field cannot be empty");
         }
     }
 }

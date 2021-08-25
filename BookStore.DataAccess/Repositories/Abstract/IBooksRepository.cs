@@ -9,6 +9,8 @@ namespace BookStore.DataAccess.Repositories.Abstract
     {
         IList<Book> GetAll(IncludeTypes type);
         Book GetById(int id, IncludeTypes type);
+        public Book GetBookByName(string title, IncludeTypes ıncludeTypes);
+
         Book Add(Book entity);
         Book Update(Book entity);
         Book Delete(Book entity);

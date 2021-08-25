@@ -41,14 +41,14 @@ namespace BookStore.API.Controllers
             return NotFound();
         }
         [HttpDelete("Delete")]
-        [Authorize(Roles = UserRoles.Admin)]
+        //[Authorize(Roles = UserRoles.Admin)]
         public IActionResult Delete(DeleteUserFav userFav)
         {
             service.Delete(userFav);
             return Ok();
         }
         [HttpPost("AddNewUserFav")]
-        [Authorize(Roles = UserRoles.Admin)]
+        //[Authorize(Roles = UserRoles.Admin)]
         public IActionResult Add(AddNewFavBook request)
         {
             service.Add(request);

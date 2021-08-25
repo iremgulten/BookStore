@@ -8,9 +8,9 @@ namespace BookStore.Business.DataTransferObjects.BooksDTO
     {
         public string Isbn { get; set; }
         public string Title { get; set; }
-        public int AuthorId { get; set; }
-        public int PublisherId { get; set; }
-        public int GenreId { get; set; }
+        public AuthorName NameSurname { get; set; }
+        public PublisherNameDTO PublisherName { get; set; }
+        public GenreNameDTO GenreName { get; set; }
         public int NumberOfPage { get; set; }
         public decimal Price { get; set; }
         public string Summary { get; set; }

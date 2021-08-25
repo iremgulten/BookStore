@@ -12,9 +12,11 @@ namespace BookStore.Business.Services.Concrete
     public class UserBookService : IUserBookService
     {
         private IUserBookRepository repository;
+        private IBooksRepository booksRepository;
         private IMapper mapper;
-        public UserBookService(IUserBookRepository repository, IMapper mapper)
+        public UserBookService(IUserBookRepository repository,IBooksRepository booksRepository, IMapper mapper)
         {
+            this.booksRepository = booksRepository;
             this.repository = repository;
             this.mapper = mapper;
         }
@@ -35,23 +37,22 @@ namespace BookStore.Business.Services.Concrete
             return mapper.Map<IList<GetByUserIdDTO>>(dtoList);
         }
 
-        public IList<GetByUserNameDTO> GetByUserName(UserNameDTO userId)
+        public IList<GetByUserNameDTO> GetByUserName(UserNameDTO userName)
         {
-            var dtoList = repository.GetByUserName(userId.UserName, IncludeTypes.User | IncludeTypes.Book);
+            var dtoList = repository.GetByUserName(userName.UserName, IncludeTypes.User | IncludeTypes.Book);
             return mapper.Map<IList<GetByUserNameDTO>>(dtoList);
         }
         public void Delete(DeleteUserFav userFav)
         {
-            var userFavDto = GetByUserName(userFav.UserName).FirstOrDefault(x => x.Book.Id == userFav.BookId);
-            //UserBook userBookDto = mapper.Map<UserBook>(userFav);
-            //userBookDto.Id = userFavDto.Id;
-            //userBookDto.UserId = userFavDto.UserId;
+            var userFavDto = GetByUserName(userFav.UserName).FirstOrDefault(x => x.Book.Title.ToLower().Contains(userFav.Title.Title.ToLower()));
             repository.Delete(userFavDto.Id);
         }
 
         public void Add(AddNewFavBook request)
         {
             var newUserFav = mapper.Map<UserBook>(request);
+            newUserFav.UserId = GetByUserName(request.UserName).FirstOrDefault(x => x.User.UserName.ToLower().Contains(request.UserName.UserName.ToLower())).UserId;
+           // newUserFav.BookId = BookService.GetBookByName(request.Title.Title.ToLower()).Id;
             repository.Add(newUserFav);
         }
     }

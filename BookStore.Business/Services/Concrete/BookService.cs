@@ -50,6 +50,11 @@ namespace BookStore.Business.Services.Concrete
             var book = bookRepository.GetById(id, IncludeTypes.Author | IncludeTypes.Publisher | IncludeTypes.Genre);
             return mapper.Map<BookListRequest>(book);
         }
+        public BookListRequest GetBookByName(string title)
+        {
+            var book = bookRepository.GetBookByName(title, IncludeTypes.Author | IncludeTypes.Publisher | IncludeTypes.Genre);
+            return mapper.Map<BookListRequest>(book);
+        }
 
         public BookFlagsRequest GetBookFlagById(int id)
         {
@@ -82,7 +87,7 @@ namespace BookStore.Business.Services.Concrete
         }
         public IList<BookFlagsRequest> GetBooksByGenreName(GenreNameRequest genre)
         {
-            var books = bookRepository.GetBooksByGenreName(genre.Name, IncludeTypes.Author | IncludeTypes.Publisher | IncludeTypes.Genre);
+            var books = bookRepository.GetBooksByGenreName(genre.GenreName, IncludeTypes.Author | IncludeTypes.Publisher | IncludeTypes.Genre);
             return mapper.Map<IList<BookFlagsRequest>>(books);
         }
 
@@ -93,7 +98,7 @@ namespace BookStore.Business.Services.Concrete
         }
         public IList<BookFlagsRequest> GetBooksByPublisherName(GetBooksByPublisherName publisher)
         {
-            var books = bookRepository.GetBooksByPublisherName(publisher.Name, IncludeTypes.Author | IncludeTypes.Publisher | IncludeTypes.Genre);
+            var books = bookRepository.GetBooksByPublisherName(publisher.PublisherName, IncludeTypes.Author | IncludeTypes.Publisher | IncludeTypes.Genre);
             return mapper.Map<IList<BookFlagsRequest>>(books);
         }
     }

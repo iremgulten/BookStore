@@ -7,7 +7,7 @@ namespace BookStore.Business.FluentValidation
     {
         public AddNewGenreRequestValidator()
         {
-            RuleFor(x => x.Name).NotEmpty().WithMessage("Genre field cannot be empty");
+            RuleFor(x => x.GenreName).NotEmpty().WithMessage("Genre field cannot be empty");
         }
     }
 }

@@ -104,7 +104,7 @@ namespace BookStore.API.Controllers
         }
 
         [HttpPost("AddNewBook")]
-        [Authorize(Roles = UserRoles.Admin)]
+        //[Authorize(Roles = UserRoles.Admin)]
         public IActionResult AddBook(AddNewBookRequest request)
         {
             service.AddBook(request);
@@ -133,8 +133,6 @@ namespace BookStore.API.Controllers
             service.DeleteBook(isExisting);
             return Ok();
         }
-
-
         
     }
 }

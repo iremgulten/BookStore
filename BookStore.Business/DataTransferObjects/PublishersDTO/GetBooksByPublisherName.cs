@@ -8,6 +8,6 @@ namespace BookStore.Business.DataTransferObjects.PublishersDTO
 {
     public class GetBooksByPublisherName
     {
-        public string Name { get; set; }
+        public string PublisherName { get; set; }
     }
 }
